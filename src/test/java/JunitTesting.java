@@ -6,7 +6,7 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 
-public class Tests {
+ public class JunitTesting {
     @Test
     public void testGreeting(){
         Main classTest = new Main();
