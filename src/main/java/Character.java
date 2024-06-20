@@ -14,4 +14,14 @@ public abstract class Character {
         System.out.println(name + " - Health: " + health + ", Attack Power: " + attackPower);
         System.out.println("Speed: " + speed);
     }
+    public void attackEnemy(Enemy target) {
+        target.health -= this.attackPower;
+        System.out.println(this.name + " attacks " + target.name + " for " + this.attackPower + " damage.");
+    }
+    public void heroIsHit(Enemy target){
+        this.health -= target.attackPower;
+        System.out.println(this.name + " was hit by " + target.name + " for " + target.attackPower);
+    }
+
+
 }
