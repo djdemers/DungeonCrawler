@@ -1,14 +1,16 @@
 public abstract class Character {
     protected String name;
+    protected  Race race;
     protected int health;
     protected int attackPower;
     protected int speed;
 
-    public Character(String name, int health, int attackPower, int speed) {
+    public Character(String name, Race race, int baseHealth, int baseAttackPower, int baseSpeed) {
         this.name = name;
-        this.health = health;
-        this.attackPower = attackPower;
-        this.speed = speed;
+        this.race = race;
+        this.health = baseHealth + race.getHealthBonus();
+        this.attackPower = baseAttackPower + race.getStrengthBonus();
+        this.speed = baseSpeed + race.getAgilityBonus();
     }
     public void displayStats() {
         System.out.println(name + " - Health: " + health + ", Attack Power: " + attackPower);
