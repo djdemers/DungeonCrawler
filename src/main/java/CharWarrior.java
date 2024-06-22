@@ -10,6 +10,13 @@ public class CharWarrior extends Character {
     @Override
     public void attackEnemy(Enemy target) {
         super.attackEnemy(target);
+
     }
+
+    public void shieldBlock() {
+        System.out.println(this.name + " uses Shield Block to reduce incoming damage!");
+
+    }
+
 
 }
