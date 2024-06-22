@@ -17,13 +17,26 @@ public abstract class Character {
         System.out.println("Speed: " + speed);
     }
     public void attackEnemy(Enemy target) {
-        target.health -= this.attackPower;
-        System.out.println(this.name + " attacks " + target.name + " for " + this.attackPower + " damage.");
+        target.reduceHealth(this.attackPower);
+        System.out.println(this.name + " attacks " + target.getName() + " for " + this.attackPower + " damage.");
     }
+
     public void heroIsHit(Enemy target){
         this.health -= target.attackPower;
         System.out.println(this.name + " was hit by " + target.name + " for " + target.attackPower);
     }
 
+    public boolean isAlive() {
+        return this.health > 0;
+    }
 
+    public void reduceHealth(int damage) {
+        this.health -= damage;
+        if (this.health < 0) {
+            this.health = 0;
+        }
+    }
+    public String getName(){
+        return this.name;
+    }
 }

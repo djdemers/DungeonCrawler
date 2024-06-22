@@ -8,7 +8,7 @@ public class CharacterFactory {
             case "archer":
                 return new CharArcher(name, race);
             case "rogue":
-                return new CharRogue(name,race);
+                return new CharRogue(name, race);
             default:
                 throw new IllegalArgumentException("Unknown character type: " + type);
         }

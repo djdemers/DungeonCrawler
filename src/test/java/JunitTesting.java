@@ -10,7 +10,7 @@ import org.junit.Test;
     @Test
     public void testGreeting(){
         Main classTest = new Main();
-        assertEquals("Hello, world!", classTest.getGreeting());
+        assertEquals("Welcome to the Dungie!", classTest.getGreeting());
     }
 
 }
