@@ -2,8 +2,8 @@ public abstract class CharacterDecorator extends Character {
     protected Character decoratedCharacter;
 
     public CharacterDecorator(Character decoratedCharacter) {
-        super(decoratedCharacter.name, decoratedCharacter.health,
-                decoratedCharacter.attackPower);
+        super(decoratedCharacter.name, decoratedCharacter.race, decoratedCharacter.health,
+                decoratedCharacter.attackPower, decoratedCharacter.speed);
         this.decoratedCharacter = decoratedCharacter;
     }
 
@@ -13,8 +13,8 @@ public abstract class CharacterDecorator extends Character {
     }
 
     @Override
-    public void attack(Enemy target) {
-        decoratedCharacter.attack(target);
+    public void attackEnemy(Enemy target) {
+        decoratedCharacter.attackEnemy(target);
     }
 
     @Override

@@ -7,10 +7,10 @@ public class SwordDecorator extends CharacterDecorator {
     }
 
     @Override
-    public void attack(Enemy target) {
+    public void attackEnemy(Enemy target) {
         // Temporarily boost attack power
         decoratedCharacter.attackPower += additionalAttackPower;
-        super.attack(target);
+        super.attackEnemy(target);
         // Reset attack power after attack
         //decoratedCharacter.attackPower -= additionalAttackPower;
     }

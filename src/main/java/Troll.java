@@ -1,6 +1,6 @@
 public class Troll extends Enemy {
     public Troll() {
-        super("Troll", 100, 20);
+        super("Troll", 100, 20, 5);
     }
 
     // Trolls might regenerate health, for example
