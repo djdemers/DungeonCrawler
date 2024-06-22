@@ -13,8 +13,8 @@ public abstract class Character {
         this.speed = baseSpeed + race.getAgilityBonus();
     }
     public void displayStats() {
-        System.out.println(name + " - Health: " + health + ", Attack Power: " + attackPower);
-        System.out.println("Speed: " + speed);
+        System.out.println(name + " - Health: " + health + " Attack Power: " + attackPower + " Speed: " + speed);
+
     }
     public void attackEnemy(Enemy target) {
         target.reduceHealth(this.attackPower);

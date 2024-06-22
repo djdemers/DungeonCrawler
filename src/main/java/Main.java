@@ -3,9 +3,9 @@ public class Main {
     public static void main(String[] args) {
         Main app = new Main();
         System.out.println(app.getGreeting());
-        Character mage = CharacterFactory.createCharacter("mage", "one" );
-        Character warrior = CharacterFactory.createCharacter("warrior", "two");
-        Character archer = CharacterFactory.createCharacter("archer", "three");
+        Character mage = CharacterFactory.createCharacter("mage", "Gug",  Race.ORC );
+        Character warrior = CharacterFactory.createCharacter("warrior", "Fred", Race.HUMAN);
+        Character archer = CharacterFactory.createCharacter("archer", "Lego", Race.ELF);
         //Mage mage = new Mage("one");
         //System.out.println(mage.getName());
         //mage.displayStats();
@@ -21,12 +21,12 @@ public class Main {
         troll1.displayStats();
         dragon1.displayStats();
 
-        mage.attack(goblin1);
+        mage.attackEnemy(goblin1);
         goblin1.displayStats();
-        goblin1.attack(mage);
+        goblin1.attackHero(mage);
         mage.displayStats();
         SwordDecorator mageDeco = new SwordDecorator(mage, 5);
-        mageDeco.attack(goblin2);
+        mageDeco.attackEnemy(goblin2);
         mageDeco.displayStats();
 
     }
