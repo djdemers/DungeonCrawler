@@ -1,5 +1,5 @@
 public class SwordDecorator extends CharacterDecorator {
-    private int additionalAttackPower = 10;
+    private int additionalAttackPower;
 
     public SwordDecorator(Character decoratedCharacter, int additionalAttackPower) {
         super(decoratedCharacter);
@@ -12,6 +12,6 @@ public class SwordDecorator extends CharacterDecorator {
         decoratedCharacter.attackPower += additionalAttackPower;
         super.attack(target);
         // Reset attack power after attack
-        decoratedCharacter.attackPower -= additionalAttackPower;
+        //decoratedCharacter.attackPower -= additionalAttackPower;
     }
 }
