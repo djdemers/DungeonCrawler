@@ -3,6 +3,6 @@ public class Goblin extends Enemy {
         super("Goblin", 50, 10);
     }
 
-    // Additional methods specific to Goblins
+
 }
 

@@ -3,7 +3,7 @@ public class Dragon extends Enemy {
         super("Dragon", 200, 40);
     }
 
-    // Dragons might have a fire breath attack
+
     public void fireBreath(Character target) {
         int fireDamage = 60;
         target.reduceHealth(fireDamage);
