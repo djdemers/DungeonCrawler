@@ -1,16 +1,25 @@
+package factories;
+
+import characters.*;
+import characters.Character;
+
 public class CharacterFactory {
-    public static Character createCharacter(String type, String name, Race race) {
-        switch (type.toLowerCase()) {
-            case "warrior":
-                return new CharWarrior(name, race);
-            case "mage":
+    public static Character createRandomCharacter(String name) {
+        Race race = Race.getRandomRace();
+        CharacterClass charClass = CharacterClass.getRandomClass();
+
+        switch (charClass) {
+            case WARRIOR:
+                return new Warrior(name, race);
+            case MAGE:
                 return new Mage(name, race);
-            case "archer":
-                return new Archer(name, race);
-            case "rogue":
+            case ROGUE:
                 return new Rogue(name, race);
+            case ARCHER:
+                return new Archer(name, race);
             default:
-                throw new IllegalArgumentException("Unknown character type: " + type);
+                throw new IllegalArgumentException("Unknown class: " + charClass);
         }
     }
 }
+
