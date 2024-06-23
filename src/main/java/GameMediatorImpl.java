@@ -1,14 +1,14 @@
-import java.util.ArrayList;
+import characters.Character;
+import enemies.Enemy;
+import factories.EnemyFactory;
 import java.util.List;
 
 public class GameMediatorImpl implements GameMediator {
     private Character hero;
-    private List<Enemy> enemies;
     private int currentLevel = 1;
 
     public GameMediatorImpl(Character hero) {
         this.hero = hero;
-        this.enemies = new ArrayList<>();
     }
 
     @Override
@@ -22,18 +22,23 @@ public class GameMediatorImpl implements GameMediator {
         if (!hero.isAlive()) {
             gameOver();
         } else {
-            System.out.println(hero.getName() + " has defeated " + enemy.getName() + "!");
-            //nextLevel(hero);
+            System.out.println(hero.getName() + " has defeated " + enemy.getClass().getSimpleName() + "!");
+            nextLevel();
         }
     }
 
-    @Override
-    public void nextLevel(Character hero) {
+    public void nextLevel() {
         currentLevel++;
+        Enemy enemy;
+        if (currentLevel % 10 == 0) {
+            enemy = EnemyFactory.createRandomBoss();
+        } else if (currentLevel % 5 == 0) {
+            enemy = EnemyFactory.createRandomMediumEnemy();
+        } else {
+            enemy = EnemyFactory.createRandomSmallEnemy();
+        }
         System.out.println("Welcome to level " + currentLevel);
-        Enemy nextEnemy = EnemyFactory.createEnemy("next_level_enemy_type");
-        enemies.add(nextEnemy);
-        fight(hero, nextEnemy);
+        fight(hero, enemy);
     }
 
     @Override
