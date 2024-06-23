@@ -1,3 +1,7 @@
+package characters;
+
+import enemies.Enemy;
+
 public class Archer extends Character {
     public Archer(String name, Race race){
         // - Base stats for an Archer and adding race modifiers:
