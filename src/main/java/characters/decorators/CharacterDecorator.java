@@ -1,11 +1,14 @@
-//Decorator Design Pattern from Structural Patterns
+package characters.decorators;//Decorator Design Pattern from Structural Patterns
+
+import characters.Character;
+import enemies.Enemy;
 
 public abstract class CharacterDecorator extends Character {
     protected Character decoratedCharacter;
 
     public CharacterDecorator(Character decoratedCharacter) {
-        super(decoratedCharacter.name, decoratedCharacter.race, decoratedCharacter.health,
-                decoratedCharacter.attackPower, decoratedCharacter.speed);
+        super(decoratedCharacter.getName(), decoratedCharacter.getRace(), decoratedCharacter.getHealth(),
+                decoratedCharacter.getAttackPower(), decoratedCharacter.getSpeed());
         this.decoratedCharacter = decoratedCharacter;
     }
 
