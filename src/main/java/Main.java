@@ -3,31 +3,17 @@ public class Main {
     public static void main(String[] args) {
         Main app = new Main();
         System.out.println(app.getGreeting());
-        Character mage = CharacterFactory.createCharacter("mage", "Gug",  Race.ORC );
-        Character warrior = CharacterFactory.createCharacter("warrior", "Fred", Race.HUMAN);
-        Character archer = CharacterFactory.createCharacter("archer", "Lego", Race.ELF);
-        //Mage mage = new Mage("one");
-        //System.out.println(mage.getName());
-        //mage.displayStats();
-        //warrior.displayStats();
-        //archer.displayStats();
 
-        Enemy goblin1 = EnemyFactory.createEnemy("goblin");
-        Enemy goblin2 = EnemyFactory.createEnemy("goblin");
-        Enemy troll1 = EnemyFactory.createEnemy("troll");
-        Enemy dragon1 = EnemyFactory.createEnemy("dragon");
+        Character hero = new CharRogue("Sneak", Race.FAIRY);
+        hero.displayStats();
+        GameMediator mediator = new GameMediatorImpl(hero);
+        Enemy initialEnemy = EnemyFactory.createEnemy("goblin");
+        mediator.fight(hero,initialEnemy);
 
-        goblin1.displayStats();
-        troll1.displayStats();
-        dragon1.displayStats();
 
-        mage.attackEnemy(goblin1);
-        goblin1.displayStats();
-        goblin1.attackHero(mage);
-        mage.displayStats();
-        SwordDecorator mageDeco = new SwordDecorator(mage, 5);
-        mageDeco.attackEnemy(goblin2);
-        mageDeco.displayStats();
+
+       hero = new SwordDecorator(hero, 10);
+       hero.displayStats();
 
     }
 
