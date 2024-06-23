@@ -1,2 +1,5 @@
-package PACKAGE_NAME;public class GameMediator {
+public interface GameMediator {
+    void fight(Character hero, Enemy enemy);
+    void nextLevel(Character hero);
+    void gameOver();
 }
