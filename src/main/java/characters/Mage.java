@@ -1,3 +1,7 @@
+package characters;
+
+import enemies.Enemy;
+
 public class Mage extends Character {
     public Mage(String name, Race race){
         // - Base stats for a mage and adding race modifiers:
@@ -10,4 +14,5 @@ public class Mage extends Character {
     public void attackEnemy(Enemy target) {
         super.attackEnemy(target);
     }
+
 }
