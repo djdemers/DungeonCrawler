@@ -1,3 +1,7 @@
+package enemies;
+
+import characters.Character;
+
 public class Dragon extends Enemy {
     public Dragon() {
         super("Dragon", 200, 40, 90);

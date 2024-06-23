@@ -1,3 +1,6 @@
+package enemies;
+
+
 public class Troll extends Enemy {
     public Troll() {
         super("Troll", 100, 20, 5);
