@@ -1,3 +1,5 @@
+//Factory Design Pattern from Creational Patterns
+
 public class EnemyFactory {
     public static Enemy createEnemy(String type) {
         switch (type.toLowerCase()) {

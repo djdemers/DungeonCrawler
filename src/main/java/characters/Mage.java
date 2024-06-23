@@ -1,5 +1,5 @@
-public class CharMage extends Character {
-    public CharMage(String name, Race race){
+public class Mage extends Character {
+    public Mage(String name, Race race){
         // - Base stats for a mage and adding race modifiers:
         // - Base Health: 110
         // - Base Attack Power: 60

@@ -1,5 +1,5 @@
-public class CharArcher extends Character {
-    public CharArcher(String name, Race race){
+public class Archer extends Character {
+    public Archer(String name, Race race){
         // - Base stats for an Archer and adding race modifiers:
         // - Base Health: 120
         // - Base Attack Power: 40

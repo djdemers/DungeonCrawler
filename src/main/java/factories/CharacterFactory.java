@@ -4,11 +4,11 @@ public class CharacterFactory {
             case "warrior":
                 return new CharWarrior(name, race);
             case "mage":
-                return new CharMage(name, race);
+                return new Mage(name, race);
             case "archer":
-                return new CharArcher(name, race);
+                return new Archer(name, race);
             case "rogue":
-                return new CharRogue(name, race);
+                return new Rogue(name, race);
             default:
                 throw new IllegalArgumentException("Unknown character type: " + type);
         }

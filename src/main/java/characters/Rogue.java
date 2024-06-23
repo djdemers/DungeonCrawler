@@ -1,5 +1,5 @@
-public class CharRogue extends Character {
-    public CharRogue(String name, Race race){
+public class Rogue extends Character {
+    public Rogue(String name, Race race){
         // - Base stats for a rogue and adding race modifiers:
         // - Base Health: 100
         // - Base Attack Power: 40

@@ -1,3 +1,5 @@
+//Decorator Design Pattern from Structural Patterns
+
 public abstract class CharacterDecorator extends Character {
     protected Character decoratedCharacter;
 
