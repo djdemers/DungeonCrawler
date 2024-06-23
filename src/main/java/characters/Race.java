@@ -1,3 +1,5 @@
+package characters;
+
 public enum Race {
     HUMAN("Human", 5, 5, 5),
     ELF("Elf", 4, 6, 7),
@@ -20,6 +22,10 @@ public enum Race {
 
     public String getName() {
         return name;
+    }
+
+    public static Race getRandomRace(){
+        return values()[(int) (Math.random() * values().length)];
     }
 
     public int getHealthBonus() {
