@@ -1,6 +1,10 @@
+package characters;
+
+import enemies.Enemy;
+
 public abstract class Character {
     protected String name;
-    protected  Race race;
+    protected Race race;
     protected int health;
     protected int attackPower;
     protected int speed;
@@ -16,14 +20,15 @@ public abstract class Character {
         System.out.println(name + " the " + race + " - Health: " + health + " Attack Power: " + attackPower + " Speed: " + speed);
 
     }
+
     public void attackEnemy(Enemy target) {
         target.reduceHealth(this.attackPower);
         System.out.println(this.name + " attacks " + target.getName() + " for " + this.attackPower + " damage.");
     }
 
     public void heroIsHit(Enemy target){
-        this.health -= target.attackPower;
-        System.out.println(this.name + " was hit by " + target.name + " for " + target.attackPower);
+        this.health -= target.getHealth();
+        System.out.println(this.name + " was hit by " + target.getName() + " for " + target.getAttackPower());
     }
 
     public boolean isAlive() {
@@ -38,5 +43,21 @@ public abstract class Character {
     }
     public String getName(){
         return this.name;
+    }
+    public int getHealth(){
+        return health;
+    }
+    public int getAttackPower(){
+        return attackPower;
+    }
+    public void setAttackPower(int attackPower){
+        this.attackPower = attackPower;
+    }
+    public int getSpeed(){
+        return speed;
+    }
+
+    public Race getRace() {
+        return race;
     }
 }
