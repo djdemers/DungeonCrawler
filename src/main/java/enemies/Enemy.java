@@ -1,3 +1,7 @@
+package enemies;
+
+import characters.Character;
+
 public abstract class Enemy {
     protected String name;
     protected int health;
@@ -17,8 +21,8 @@ public abstract class Enemy {
 
 
     public void enemyIsHit(Character target) {
-        this.health -= target.attackPower;
-        System.out.println(this.name + " was hit by " + target.name + " for " + target.attackPower);
+        this.health -= target.getAttackPower();
+        System.out.println(this.name + " was hit by " + target.getName() + " for " + target.getAttackPower());
     }
 
     public void attackHero(Character target) {
@@ -40,6 +44,15 @@ public abstract class Enemy {
 
     public String getName() {
         return name;
+    }
+    public int getHealth(){
+        return health;
+    }
+    public int getAttackPower(){
+        return attackPower;
+    }
+    public int getSpeed(){
+        return speed;
     }
 }
 
