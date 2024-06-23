@@ -1,5 +1,9 @@
-public class CharWarrior extends Character {
-    public CharWarrior(String name, Race race) {
+package characters;
+
+import enemies.Enemy;
+
+public class Warrior extends Character {
+    public Warrior(String name, Race race) {
         // - Base stats for a warrior and adding race modifiers:
         // - Base Health: 150
         // - Base Attack Power: 30
