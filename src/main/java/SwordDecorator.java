@@ -4,14 +4,17 @@ public class SwordDecorator extends CharacterDecorator {
     public SwordDecorator(Character decoratedCharacter, int additionalAttackPower) {
         super(decoratedCharacter);
         this.additionalAttackPower = additionalAttackPower;
+        this.decoratedCharacter.attackPower += additionalAttackPower;
     }
 
     @Override
     public void attackEnemy(Enemy target) {
-        // Temporarily boost attack power
-        decoratedCharacter.attackPower += additionalAttackPower;
         super.attackEnemy(target);
-        // Reset attack power after attack
-        //decoratedCharacter.attackPower -= additionalAttackPower;
+    }
+
+
+    public void removeSword() {
+        this.decoratedCharacter.attackPower -= additionalAttackPower; // Remove the attack bonus if the sword is unequipped
     }
 }
+
