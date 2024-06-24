@@ -12,7 +12,6 @@ public class ArmorDecorator extends CharacterDecorator {
         super(decoratedCharacter);
         this.additionalDefense = additionalDefense;
     }
-
     @Override
     public int getDefense() {
         // Add the armor's additional defense to the decorated character's defense
@@ -22,10 +21,5 @@ public class ArmorDecorator extends CharacterDecorator {
     @Override
     public void unequip() {
         super.setDefense(super.getDefense() - additionalDefense);
-    }
-    @Override
-    public void reduceHealth(int damage) {
-        // Apply the enhanced defense when taking damage
-        super.reduceHealth(Math.max(0, damage - additionalDefense));
     }
 }
