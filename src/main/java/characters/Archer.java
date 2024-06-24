@@ -8,7 +8,7 @@ public class Archer extends Character {
         // - Base Health: 120
         // - Base Attack Power: 40
         // - Base Speed: 40
-        super(name,race,120,40,40);
+        super(name,race,80,12,5, 3);
     }
     @Override
     public void attackEnemy(Enemy target) {

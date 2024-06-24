@@ -8,7 +8,7 @@ public class Mage extends Character {
         // - Base Health: 110
         // - Base Attack Power: 60
         // - Base Speed: 30
-    super(name,race, 110, 60, 30);
+    super(name,race, 60, 20, 9, 1);
     }
     @Override
     public void attackEnemy(Enemy target) {

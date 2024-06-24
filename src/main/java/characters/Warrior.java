@@ -8,7 +8,7 @@ public class Warrior extends Character {
         // - Base Health: 150
         // - Base Attack Power: 30
         // - Base Speed: 20
-        super(name, race, 150, 30, 20);
+        super(name, race, 80, 10, 5, 5);
     }
 
     @Override
