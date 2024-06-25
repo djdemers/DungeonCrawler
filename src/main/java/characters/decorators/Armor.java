@@ -7,19 +7,16 @@ import characters.Character;
  */
 public class ArmorDecorator extends CharacterDecorator {
     private int additionalDefense;
-
     public ArmorDecorator(Character decoratedCharacter, int additionalDefense) {
         super(decoratedCharacter);
         this.additionalDefense = additionalDefense;
     }
     @Override
-    public int getDefense() {
-        // Add the armor's additional defense to the decorated character's defense
-        return super.getDefense() + additionalDefense;
+    public void apply(Character character) {
+        character.setDefense(character.getDefense() + additionalDefense);
     }
-
     @Override
-    public void unequip() {
-        super.setDefense(super.getDefense() - additionalDefense);
+    public void revert(Character character) {
+        character.setDefense(character.getDefense() - additionalDefense);
     }
 }

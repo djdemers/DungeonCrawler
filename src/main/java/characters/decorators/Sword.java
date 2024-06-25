@@ -12,13 +12,13 @@ public class SwordDecorator extends CharacterDecorator {
         this.additionalAttackPower = additionalAttackPower;
     }
     @Override
-    public int getAttackPower() {
-        return super.getAttackPower() + additionalAttackPower;
+    public void apply(Character character) {
+        character.setAttackPower(character.getAttackPower() + additionalAttackPower);
     }
 
     @Override
-    public void unequip() {
-        super.setAttackPower(super.getAttackPower() - additionalAttackPower);
+    public void revert(Character character) {
+        character.setAttackPower(character.getAttackPower() - additionalAttackPower);
     }
 
 }

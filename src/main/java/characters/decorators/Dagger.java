@@ -13,21 +13,15 @@ public class DaggerDecorator extends CharacterDecorator {
         this.additionalAttackPower = additionalAttackPower;
         this.additionalSpeed = additionalSpeed;
     }
-
     @Override
-    public int getAttackPower() {
-        // Adds additional attack power to the decorated character's attack power
-        return super.getAttackPower() + additionalAttackPower;
+    public void apply(Character character){
+        character.setAttackPower(character.getAttackPower() + additionalAttackPower);
+        character.setSpeed(character.getSpeed() + additionalSpeed);
+    }
+    @Override
+    public void revert(Character character){
+        character.setAttackPower(character.getAttackPower() - additionalAttackPower);
+        character.setSpeed(character.getSpeed() - additionalSpeed);
     }
 
-    @Override
-    public int getSpeed() {
-        // Adds additional speed to the decorated character's speed
-        return super.getSpeed() + additionalSpeed;
-    }
-    @Override
-    public void unequip() {
-        super.setAttackPower(super.getAttackPower() - additionalAttackPower);
-        super.setSpeed(super.getSpeed() - additionalSpeed);
-    }
 }

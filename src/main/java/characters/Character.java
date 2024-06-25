@@ -1,5 +1,10 @@
 package characters;
+import characters.decorators.CharacterDecorator;
 import enemies.Enemy;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 
 /**
@@ -15,6 +20,8 @@ public abstract class Character {
     protected int attackPower;
     protected int speed;
     protected int defense;
+
+    private List<CharacterDecorator> decorators = new ArrayList<>();
 
     /**
      * Constructs a new character with specified attributes and race modifiers.
@@ -35,6 +42,63 @@ public abstract class Character {
     }
 
     /**
+     * Equips a decorator to this character, applying its effects.
+     * The method adds the decorator to the character's list of active decorators
+     * and applies its effects to the character's attributes.
+     *
+     * @param decorator The decorator to be equipped, which will modify the character's attributes.
+     */
+    public void equipDecorator(CharacterDecorator decorator) {
+        decorators.add(decorator);
+        decorator.apply(this);
+    }
+
+    /**
+     * Unequip a decorator of the specified type from this character, reverting its effects.
+     * This method searches for the first decorator of the specified type in the list of active decorators,
+     * reverts its effects, and then removes it from the list.
+     *
+     * @param decoratorType The class type of the decorator to be unequipped.
+     *        Only the first instance of this type is unequipped.
+     */
+    public void unequipDecorator(Class<? extends CharacterDecorator> decoratorType) {
+        decorators.stream()
+                .filter(decoratorType::isInstance)
+                .findFirst()
+                .ifPresent(decorator -> {
+                    decorator.revert(this);
+                    decorators.remove(decorator);
+                });
+    }
+
+    /**
+     * Attempts to equip a new decorator, replacing an existing one of the same type if the new one is stronger.
+     * This method checks for an existing decorator of the same class as the new decorator.
+     * If an existing decorator is found and the new decorator is determined to be stronger,
+     * the old decorator is unequipped and the new one is equipped. If no decorator of the same type is
+     * currently equipped, the new one is equipped directly.
+     *
+     * @param newDecorator The new decorator that is being considered for equipping.
+     */
+    public void attemptToEquipDecorator(CharacterDecorator newDecorator) {
+        Optional<CharacterDecorator> existing = decorators.stream()
+                .filter(d -> d.getClass().equals(newDecorator.getClass()))
+                .findFirst();
+
+        if (existing.isPresent()) {
+            // Let's say you decide based on a simple rule: replace if new item is stronger
+            if (newDecorator.getAttackPower() > existing.get().getAttackPower()) {
+                unequipDecorator(existing.get().getClass());
+                equipDecorator(newDecorator);
+            } else {
+                System.out.println("Kept the existing " + existing.get().getClass().getSimpleName());
+            }
+        } else {
+            equipDecorator(newDecorator);
+        }
+    }
+
+    /**
      * Displays the character's current stats to the console.
      */
     public void displayStats() {
@@ -44,6 +108,7 @@ public abstract class Character {
                 " Attack Power: " + getAttackPower() +
                 " Speed: " + getSpeed() +
                 " Defense: " + getDefense());
+        decorators.forEach(d -> System.out.println("Equipped with: " + d.getClass().getSimpleName()));
     }
 
     /**
@@ -52,8 +117,9 @@ public abstract class Character {
      * @param target the enemy to attack
      */
     public void attackEnemy(Enemy target) {
-        int damageDone = this.getAttackPower() - target.getDefense();
-        target.reduceHealth(this.getAttackPower());
+        int initialDamage = this.getAttackPower();
+        int damageDone = initialDamage - target.getDefense();
+        target.reduceHealth(initialDamage);
         System.out.println(this.name + " attacks " + target.getName() + " for "
                 + damageDone + " damage.");
     }
