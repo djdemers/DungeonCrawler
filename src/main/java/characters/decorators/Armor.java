@@ -5,9 +5,9 @@ import characters.Character;
 /**
  * Decorator that enhances a character's defense due to equipping armor.
  */
-public class ArmorDecorator extends CharacterDecorator {
+public class Armor extends CharacterDecorator {
     private int additionalDefense;
-    public ArmorDecorator(Character decoratedCharacter, int additionalDefense) {
+    public Armor(Character decoratedCharacter, int additionalDefense) {
         super(decoratedCharacter);
         this.additionalDefense = additionalDefense;
     }

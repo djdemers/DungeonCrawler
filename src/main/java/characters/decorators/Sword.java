@@ -4,10 +4,10 @@ import characters.Character;
 /**
  * Decorator that enhances a character's attack power due to equipping a sword.
  */
-public class SwordDecorator extends CharacterDecorator {
+public class Sword extends CharacterDecorator {
     private int additionalAttackPower;
 
-    public SwordDecorator(Character decoratedCharacter, int additionalAttackPower) {
+    public Sword(Character decoratedCharacter, int additionalAttackPower) {
         super(decoratedCharacter);
         this.additionalAttackPower = additionalAttackPower;
     }

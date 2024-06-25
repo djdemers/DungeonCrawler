@@ -4,11 +4,11 @@ import characters.Character;
 /**
  * Decorator that enhances a character's attack power and speed by equipping a dagger.
  */
-public class DaggerDecorator extends CharacterDecorator {
+public class Dagger extends CharacterDecorator {
     private int additionalAttackPower;
     private int additionalSpeed;
 
-    public DaggerDecorator(Character decoratedCharacter, int additionalAttackPower, int additionalSpeed) {
+    public Dagger(Character decoratedCharacter, int additionalAttackPower, int additionalSpeed) {
         super(decoratedCharacter);
         this.additionalAttackPower = additionalAttackPower;
         this.additionalSpeed = additionalSpeed;
