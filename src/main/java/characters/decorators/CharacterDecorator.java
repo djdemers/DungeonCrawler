@@ -1,6 +1,5 @@
 package characters.decorators;
 import characters.Character;
-import enemies.Enemy;
 
 /**
  * Abstract decorator for character objects to extend or modify their behavior dynamically.
@@ -22,70 +21,20 @@ public abstract class CharacterDecorator extends Character {
         this.decoratedCharacter = decoratedCharacter;
     }
 
+    // Method to apply the effects of the decorator
+    public abstract void apply(Character character);
+
+    // Method to revert the effects of the decorator
+    public abstract void revert(Character character);
+
     @Override
     public void displayStats() {
         super.displayStats();  // Call the decorated character's displayStats method
     }
 
     @Override
-    public void attackEnemy(Enemy target) {
-        decoratedCharacter.attackEnemy(target);
-    }
-
-    @Override
-    public void reduceHealth(int damage) {
-        decoratedCharacter.reduceHealth(damage);  // Delegates handling to the decorated object
-    }
-
-    /**
-     * This method should be implemented to remove the decorator and restore the original character state.
-     */
-    public abstract void unequip();
-
-    // Delegate all other methods to maintain the original object's behavior
-    @Override
-    public String getName() {
-        return decoratedCharacter.getName();
-    }
-
-    @Override
-    public int getHealth() {
-        return decoratedCharacter.getHealth();
-    }
-
-    @Override
     public int getAttackPower() {
-        return decoratedCharacter.getAttackPower();
-    }
-
-    @Override
-    public int getSpeed() {
-        return decoratedCharacter.getSpeed();
-    }
-
-    @Override
-    public int getDefense() {
-        return decoratedCharacter.getDefense();
-    }
-
-    @Override
-    public void setHealth(int health) {
-        decoratedCharacter.setHealth(health);
-    }
-
-    @Override
-    public void setAttackPower(int attackPower) {
-        decoratedCharacter.setAttackPower(attackPower);
-    }
-
-    @Override
-    public void setSpeed(int speed) {
-        decoratedCharacter.setSpeed(speed);
-    }
-
-    @Override
-    public void setDefense(int defense) {
-        decoratedCharacter.setDefense(defense);
+        return super.getAttackPower();
     }
 }
 
