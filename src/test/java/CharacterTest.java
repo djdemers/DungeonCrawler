@@ -8,7 +8,7 @@ import characters.decorators.Sword;
 import org.junit.Before;
 import org.junit.Test;
 
-public class JunitTesting {
+public class CharacterTest {
     private Character hero;
     private Sword sword;
     private Armor armor;
