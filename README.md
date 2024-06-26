@@ -58,3 +58,9 @@ Submit code with your Design Patterns and all that is asked above
 2. A link to your screencast (also include in the PDF)
 3. A PDF document explaining everything that is asked above in the general assignment.
    Submit the PDF directly on Canvas.
+
+## Run Instructions
+
+## Test Instructions
+gradle test --tests InventoryTest  
+gradle test --tests CharacterTest 
