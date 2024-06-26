@@ -10,7 +10,9 @@ import enemies.Enemy;
 import enemies.Goblin;
 import factories.CharacterFactory;
 import factories.EnemyFactory;
+import factories.ItemFactory;
 import inventory.Inventory;
+import service.Item;
 
 public class Main {
 
@@ -26,32 +28,27 @@ public class Main {
         System.out.println("Before any decoration:");
         hero.displayStats();
 
+        // Create an inventory for the character
         Inventory inventory = new Inventory();
-        HealthPotion healthPotion = new HealthPotion("Health Potion", "Heal you", 25);
+
+        // Create items using the factory
+        Item healthPotion = ItemFactory.getItem("Health Potion");
+        Item sword = ItemFactory.createItem("Sword", "Iron Sword", "A sturdy iron sword.", 10, hero);
 
         // Add items to the inventory
-        System.out.println("Adding a health potion to the inventory.");
         inventory.addItem(healthPotion);
+        inventory.addItem(sword);
 
-        // Display initial inventory count
-        System.out.println("Current items in inventory: " + inventory.getItemCount());
+        // Display current inventory (assuming a method exists to list items)
+        System.out.println("Inventory Items:");
+        inventory.listItems();  // This method needs to be implemented in Inventory class
 
-        // Use the health potion
-        System.out.println("Using the health potion...");
-        inventory.useItem("Health Potion", hero);
-        System.out.println("Health after using potion: " + hero.getHealth());
+        // Optionally, apply effects of an item, e.g., equip a sword
+        if (sword instanceof Sword) {
+            ((Sword)sword).apply(hero);
+        }
+        hero.displayStats();
 
-        // Check if inventory is empty after use
-        System.out.println("Current items in inventory: " + inventory.getItemCount());
-
-        // Add and spend gold
-        System.out.println("Adding gold to the inventory...");
-        inventory.addGold(100);
-        System.out.println("Current gold: " + inventory.getGold());
-
-        System.out.println("Spending 50 gold...");
-        inventory.spendGold(50);
-        System.out.println("Current gold after spending: " + inventory.getGold());
 
         // Create item decorators
         /*CharacterDecorator sword = new Sword(hero, 5);
