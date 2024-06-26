@@ -75,4 +75,7 @@ public class GameMediatorImpl implements GameMediator {
             return EnemyFactory.createRandomSmallEnemy();
         }
     }
+
+    ////////////////////////////////////////////////////////////////////////////////
+    // GAME LOGIC FOR CHESTS AND SHOPS
 }
