@@ -17,12 +17,21 @@ repositories {
 
 // In this section you declare the dependencies for your production and test code
 dependencies {
-    implementation "junit:junit:4.12"
+
+    // JUnit Jupiter (JUnit 5) dependencies
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+
     implementation 'com.io7m.xom:xom:1.2.+'
     implementation 'net.sourceforge.nekohtml:nekohtml:1.9.+'
     implementation 'org.json:json:20231013'
-    testImplementation 'junit:junit:4.13.1'
 }
+test {
+    useJUnitPlatform()
+    include '**/InventoryTest.class'
+    include '**/*Test.class'
+}
+
 
 jacocoTestReport {
     dependsOn test // tests are required to run before generating the report
