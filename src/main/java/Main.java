@@ -1,11 +1,16 @@
 import characters.Character;
+import characters.Race;
+import characters.consumables.Consumable;
+import characters.consumables.HealthPotion;
 import characters.decorators.Armor;
 import characters.decorators.CharacterDecorator;
 import characters.decorators.Dagger;
 import characters.decorators.Sword;
 import enemies.Enemy;
+import enemies.Goblin;
 import factories.CharacterFactory;
 import factories.EnemyFactory;
+import inventory.Inventory;
 
 public class Main {
 
@@ -21,8 +26,35 @@ public class Main {
         System.out.println("Before any decoration:");
         hero.displayStats();
 
+        Inventory inventory = new Inventory();
+        HealthPotion healthPotion = new HealthPotion("Health Potion", "Heal you", 25);
+
+        // Add items to the inventory
+        System.out.println("Adding a health potion to the inventory.");
+        inventory.addItem(healthPotion);
+
+        // Display initial inventory count
+        System.out.println("Current items in inventory: " + inventory.getItemCount());
+
+        // Use the health potion
+        System.out.println("Using the health potion...");
+        inventory.useItem("Health Potion", hero);
+        System.out.println("Health after using potion: " + hero.getHealth());
+
+        // Check if inventory is empty after use
+        System.out.println("Current items in inventory: " + inventory.getItemCount());
+
+        // Add and spend gold
+        System.out.println("Adding gold to the inventory...");
+        inventory.addGold(100);
+        System.out.println("Current gold: " + inventory.getGold());
+
+        System.out.println("Spending 50 gold...");
+        inventory.spendGold(50);
+        System.out.println("Current gold after spending: " + inventory.getGold());
+
         // Create item decorators
-        CharacterDecorator sword = new Sword(hero, 5);
+        /*CharacterDecorator sword = new Sword(hero, 5);
         CharacterDecorator armor = new Armor(hero, 3);
         CharacterDecorator dagger = new Dagger(hero, 1, 2);
 
@@ -45,10 +77,21 @@ public class Main {
         System.out.println("After equipping dagger:");
         hero.displayStats();
 
+        Enemy enemy = new Goblin();
+        enemy.attackHero(hero);
+        hero.displayStats();
 
-        GameMediator mediator = new GameMediatorImpl(hero);
-        Enemy initialEnemy = EnemyFactory.createRandomSmallEnemy();
-        mediator.fight(hero,initialEnemy);
+
+        // Create and use a health potion
+        Consumable healthPotion = new HealthPotion("Health Potion", "Restores 50 health", 50);
+        System.out.println("Using Health Potion:");
+        healthPotion.use(hero);
+        hero.displayStats();*/
+
+
+        //GameMediator mediator = new GameMediatorImpl(hero);
+        //Enemy initialEnemy = EnemyFactory.createRandomSmallEnemy();
+        //mediator.fight(hero,initialEnemy);
 
 
 
