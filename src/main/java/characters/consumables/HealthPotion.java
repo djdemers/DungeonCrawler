@@ -47,6 +47,16 @@ public class HealthPotion extends Consumable implements Item {
     public String getName(){
         return super.name;
     }
+
+    /**
+     * Returns the description of the health potion.
+     *
+     * @return The description of the potion.
+     */
+    @Override
+    public String getDescription(){
+        return description;
+    }
 }
 
 
