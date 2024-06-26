@@ -20,6 +20,7 @@ public abstract class Character {
     protected int attackPower;
     protected int speed;
     protected int defense;
+    protected int maxHealth;
 
     private List<CharacterDecorator> decorators = new ArrayList<>();
 
@@ -39,6 +40,7 @@ public abstract class Character {
         this.attackPower = baseAttackPower + race.getStrengthBonus();
         this.speed = baseSpeed + race.getAgilityBonus();
         this.defense = baseDefense + race.getDefenseBonus();
+        this.maxHealth = baseHealth + race.getHealthBonus();
     }
 
     /**
@@ -177,6 +179,10 @@ public abstract class Character {
     }
     public void setHealth(int health){
         this.health = health;
+    }
+
+    public int getMaxHealth(){
+        return this.maxHealth;
     }
 
     /**
