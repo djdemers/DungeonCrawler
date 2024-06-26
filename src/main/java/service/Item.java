@@ -8,6 +8,6 @@ public interface Item {
     //    return true;  // Assumes all items are tradable by default
     //}
     //ItemType getType();   ItemType could be an enum
-    //String getDescription();
+    String getDescription();
     //int getItemID();
 }
