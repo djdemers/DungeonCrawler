@@ -48,6 +48,12 @@ public class Inventory {
             }
         }
     }
+    public void listItems() {
+        for (Item item : items) {  // Assuming `items` is your List<Item> in Inventory
+            System.out.println(item.getName() + ": " + item.getDescription());  // Assuming getDescription exists
+        }
+    }
+
 
     /**
      * Removes an item from the inventory and reverts any effects it had on the character.
