@@ -21,4 +21,7 @@ class HealthPotionStub extends Consumable implements Item {
     public String getName(){
         return "Health Potion";
     }
+    public String getDescription(){
+        return "Description";
+    }
 }

@@ -18,8 +18,8 @@ public class CharacterTest {
         hero = new Warrior("Big boy", Race.HUMAN);
         // Warrior baseAttack: 10, baseDefense: 5
         // Human baseAttack: 2, baseDefense: 2
-        sword = new Sword(hero, 5);  // add 5 attack power
-        armor = new Armor(hero, 3);  // add 3 defense
+        sword = new Sword(hero, 5, "Sword", "Weapon");  // add 5 attack
+        armor = new Armor(hero, 3, "Armor", "Gear"); // add 3 defense
     }
 
     @Test
@@ -38,7 +38,7 @@ public class CharacterTest {
     @Test
     public void testAttemptToEquipDecoratorWithReplacement() {
         hero.equipDecorator(sword); //expect 17
-        Sword betterSword = new Sword(hero, 10); // expect 22
+        Sword betterSword = new Sword(hero, 10, "Better Sword", "Weapon"); // expect 22
         hero.attemptToEquipDecorator(betterSword);
         assertEquals(22, hero.getAttackPower(), "Attack power should be increased by 10 from the better sword.");
     }
@@ -46,7 +46,7 @@ public class CharacterTest {
     @Test
     public void testAttemptToEquipDecoratorWithoutReplacement() {
         hero.equipDecorator(sword); //expect 17
-        Sword weakerSword = new Sword(hero, 3); // expect 15
+        Sword weakerSword = new Sword(hero, 3, "Wooden Sword", "Weapon"); // expect 15
         hero.attemptToEquipDecorator(weakerSword);
         assertEquals(15, hero.getAttackPower(), "Attack power should remain with the original sword's boost.");
     }
