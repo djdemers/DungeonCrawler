@@ -1,61 +1,52 @@
 package characters.consumables;
 
 import characters.Character;
+import service.Item;
 
-public class HealthPotion extends Consumable {
+/**
+ * Represents a health potion that can be used by a character to restore health.
+ * This potion ensures that the character's health does not exceed their maximum allowable health.
+ */
+public class HealthPotion extends Consumable implements Item {
     private int healingAmount;
 
+    /**
+     * Constructs a new Health Potion with a specified name, description, and healing amount.
+     *
+     * @param name The name of the health potion.
+     * @param description A brief description of the health potion's effects.
+     * @param healingAmount The amount of health this potion will restore when used.
+     */
     public HealthPotion(String name, String description, int healingAmount) {
         super(name, description);
         this.healingAmount = healingAmount;
     }
 
+    /**
+     * Uses the potion on a character, restoring a specified amount of health,
+     * without exceeding the character's maximum health.
+     *
+     * @param character The character on whom the potion is used.
+     */
     @Override
     public void use(Character character) {
-        character.setHealth(Math.min(character.getHealth() + healingAmount, character.getMaxHealth()));
+        int originalHealth = character.getHealth(); // Store the original health before healing
+        int newHealth = Math.min(character.getHealth() + healingAmount, character.getMaxHealth()); // Calculate new health without exceeding max
+        character.setHealth(newHealth); // Set the new health
 
-        System.out.println(character.getName() + " uses " + name + " and restores " + "ADD THIS LOGIC" + " health points.");
+        int actualHealing = newHealth - originalHealth; // Calculate the actual amount of health restored
+        System.out.println(character.getName() + " uses " + name + " and restores " + actualHealing + " health points.");
         // Remove this consumable from the inventory after use
+    }
+
+    /**
+     * Returns the name of the health potion.
+     *
+     * @return The name of the potion.
+     */
+    public String getName(){
+        return super.name;
     }
 }
 
-/*public enum ConsumableItem implements Consumable {
-    HEALTH_POTION(50), SCROLL_OF_SLOW(30), SCROLL_OF_FIREBALL(25);
 
-    private final int effectValue;
-
-    ConsumableItem(int effectValue) {
-        this.effectValue = effectValue;
-    }
-
-    @Override
-    public void use(Character target) {
-        switch (this) {
-            case HEALTH_POTION:
-                target.setHealth(Math.min(target.getHealth() + effectValue, target.getMaxHealth()));
-                break;
-            // ... (handle other consumables)
-        }
-        // Remove the item from the inventory
-    }
-
-}*/
-
-
-/*public class HealthPotion implements Item, Consumable {
-    private String name;
-    private int healingPower;
-
-    public HealthPotion(String name, int healingPower) {
-        this.name = name;
-        this.healingPower = healingPower;
-    }
-
-    @Override
-    public void use(Character character) {
-        character.setHealth(character.getHealth() + healingPower);
-        System.out.println(character.getName() + " uses " + name + " and restores " + healingPower + " health points.");
-        // This might include checks for maximum health, etc.
-    }
-
-}*/
