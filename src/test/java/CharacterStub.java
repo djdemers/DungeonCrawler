@@ -15,8 +15,8 @@ class CharacterStub extends Character {
      * @param baseSpeed       the base speed of the character before racial modifiers
      * @param baseDefense
      */
-    public CharacterStub(String name, Race race, int baseHealth, int baseAttackPower, int baseSpeed, int baseDefense) {
-        super(name, race, baseHealth, baseAttackPower, baseSpeed, baseDefense);
+    public CharacterStub(String name, Race race, int baseHealth, int baseAttackPower, int baseSpeed, int baseDefense, int baseMana) {
+        super(name, race, baseHealth, baseAttackPower, baseSpeed, baseDefense, baseMana);
     }
 
     @Override
@@ -34,5 +34,4 @@ class CharacterStub extends Character {
         return maxHealth;
     }
 
-    // Implement other necessary methods or add more functionality as needed
 }

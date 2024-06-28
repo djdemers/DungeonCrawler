@@ -1,8 +1,8 @@
 import characters.consumables.Consumable;
 import characters.Character;
-import service.Item;
+import service.SingleUse;
 
-class HealthPotionStub extends Consumable implements Item {
+class HealthPotionStub extends Consumable implements SingleUse {
     private boolean used = false;
 
     public HealthPotionStub() {

@@ -1,53 +1,75 @@
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
-import characters.Character;
 import characters.Race;
-import characters.Warrior;
-import characters.decorators.Armor;
+import characters.consumables.HealthPotion;
 import characters.decorators.Sword;
+import enemies.Dragon;
+import enemies.Goblin;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import characters.Character;
+import characters.Warrior;
+import enemies.Enemy;
+import service.Item;
+
+/**
+ * Test class for Character.
+ */
 public class CharacterTest {
     private Character hero;
-    private Sword sword;
-    private Armor armor;
+    private Enemy enemy;
 
     @BeforeEach
     public void setUp() {
-        hero = new Warrior("Big boy", Race.HUMAN);
-        // Warrior baseAttack: 10, baseDefense: 5
-        // Human baseAttack: 2, baseDefense: 2
-        sword = new Sword(hero, 5, "Sword", "Weapon");  // add 5 attack
-        armor = new Armor(hero, 3, "Armor", "Gear"); // add 3 defense
+        // Initialize a character with controlled stats for predictability in tests.
+        hero = new Warrior("hero", Race.HUMAN);
+        enemy = new Goblin();
     }
 
     @Test
-    public void testEquipDecorator() {
-        hero.equipDecorator(sword);
-        assertEquals(17, hero.getAttackPower(), "Attack power should increase by 5.");
+    public void testCharacterInitialization() {
+        assertEquals(82, hero.getHealth(), "Health should match initial setup.");
+        assertEquals(7, hero.getMana(), "Mana should match initial setup.");
+        assertEquals(12, hero.getAttackPower(), "Attack power should be set correctly with racial bonuses.");
+        assertEquals(7, hero.getSpeed(), "Speed should be set correctly.");
+        assertEquals(7, hero.getDefense(), "Defense should be correct with racial bonuses.");
     }
 
     @Test
-    public void testUnequipDecorator() {
-        hero.equipDecorator(sword);
-        hero.unequipDecorator(Sword.class);
-        assertEquals(12, hero.getAttackPower(), "Attack power should revert to 12 after unequipping.");
+    public void testAttackEnemy() {
+        hero.attackEnemy(enemy);
+        assertTrue(enemy.getHealth() < 50, "Enemy health should decrease after being attacked.");
     }
 
     @Test
-    public void testAttemptToEquipDecoratorWithReplacement() {
-        hero.equipDecorator(sword); //expect 17
-        Sword betterSword = new Sword(hero, 10, "Better Sword", "Weapon"); // expect 22
-        hero.attemptToEquipDecorator(betterSword);
-        assertEquals(22, hero.getAttackPower(), "Attack power should be increased by 10 from the better sword.");
+    public void testReceiveDamage() {
+        int initialHealth = hero.getHealth();
+        hero.heroIsHit(enemy);
+        assertTrue(hero.getHealth() < initialHealth, "Hero health should decrease after taking damage.");
+    }
+    @Test
+    public void testIsAlive() {
+        assertTrue(hero.isAlive(), "Hero should initially be alive.");
+        hero.setHealth(0);
+        assertFalse(hero.isAlive(), "Hero should be dead when health is 0.");
     }
 
     @Test
-    public void testAttemptToEquipDecoratorWithoutReplacement() {
-        hero.equipDecorator(sword); //expect 17
-        Sword weakerSword = new Sword(hero, 3, "Wooden Sword", "Weapon"); // expect 15
-        hero.attemptToEquipDecorator(weakerSword);
-        assertEquals(15, hero.getAttackPower(), "Attack power should remain with the original sword's boost.");
+    public void testUseItemFromInventory() {
+        // Assuming Item interface and HealPotion implements SingleUse
+        Item healPotion = new HealthPotion("Small Heal", "Heals 20 health", 20);
+        hero.getInventory().addItem(healPotion);
+        hero.getInventory().useItem("Small Heal");
+        assertEquals(120, hero.getHealth(), "Hero's health should increase after using a healing potion.");
+    }
+
+    @Test
+    public void testEquipItemFromInventory() {
+        // Assuming Equipable interface and Sword implements Equipable
+        Item sword = new Sword("Iron Sword", hero,  5);
+        hero.getInventory().addItem(sword);
+        hero.getInventory().equipItem("Iron Sword");
+        assertEquals(17, hero.getAttackPower(), "Hero's attack power should increase after equipping a sword.");
     }
 }

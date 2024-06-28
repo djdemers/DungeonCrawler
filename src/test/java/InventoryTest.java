@@ -1,55 +1,83 @@
-import characters.Race;
-import inventory.Inventory;
-
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
+import characters.consumables.HealthPotion;
+import characters.decorators.Sword;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import characters.Character;
+import characters.Warrior;
+import characters.Race;
+import service.Item;
+import inventory.Inventory;
 
-
-class InventoryTest {
+public class InventoryTest {
     private Inventory inventory;
-    private HealthPotionStub healthPotion;
-    private CharacterStub character;
+    private Character owner;
+    private Item potion;
+    private Item sword;
 
     @BeforeEach
-    void setUp() {
-        inventory = new Inventory();
-        character = new CharacterStub("Hero", Race.HUMAN, 100, 100, 10, 5);
-        healthPotion = new HealthPotionStub();
+    public void setUp() {
+        // Setup a test character and inventory
+        owner = new Warrior("Test Warrior", Race.HUMAN);
+        inventory = new Inventory(owner);
+
+        // Create test items
+        potion = new HealthPotion("Health Potion", "Restores 50 health", 50);
+        sword = new Sword("Sword", owner, 10);
     }
 
     @Test
-    void testAddItem() {
-        inventory.addItem( healthPotion);
-        assertEquals(1, inventory.getItemCount());
+    public void testAddAndRemoveItem() {
+        assertEquals(0, inventory.getItemCount(), "Inventory should initially be empty.");
+
+        inventory.addItem(potion);
+        assertEquals(1, inventory.getItemCount(), "Inventory should contain one item after addition.");
+
+        inventory.removeItem(potion);
+        assertEquals(0, inventory.getItemCount(), "Inventory should be empty after removal.");
     }
 
     @Test
-    void testUseItem() {
-        inventory.addItem(healthPotion);
-        inventory.useItem("Health Potion", character);
-        assertTrue(healthPotion.isUsed());
-        assertTrue(inventory.isInventoryEmpty());
+    public void testUseItem() {
+        inventory.addItem(potion);
+        inventory.useItem("Health Potion");
+        assertNull(inventory.getItem("Health Potion"), "Health potion should be used and removed from inventory.");
     }
 
     @Test
-    void testAddGold() {
+    public void testEquipItem() {
+        inventory.addItem(sword);
+        inventory.equipItem("Sword");
+        assertTrue(owner.getAttackPower() > 10, "Owner's attack power should increase after equipping a sword.");
+    }
+
+    @Test
+    public void testGoldManagement() {
+        assertEquals(0, inventory.getGold(), "Initial gold should be 0.");
+
         inventory.addGold(100);
-        assertEquals(100, inventory.getGold());
-    }
+        assertEquals(100, inventory.getGold(), "Gold should be 100 after addition.");
 
-    @Test
-    void testSpendGoldSuccess() {
-        inventory.addGold(100);
         inventory.spendGold(50);
-        assertEquals(50, inventory.getGold());
+        assertEquals(50, inventory.getGold(), "Gold should be 50 after spending.");
+
+        Exception exception = assertThrows(IllegalStateException.class, () -> {
+            inventory.spendGold(100);
+        });
+        assertEquals("Not enough gold.", exception.getMessage(), "Attempting to spend more gold than available should throw exception.");
     }
 
     @Test
-    void testSpendGoldFailure() {
-        inventory.addGold(50);
-        assertThrows(IllegalStateException.class, () -> inventory.spendGold(100));
+    public void testInventoryEmpty() {
+        assertTrue(inventory.isInventoryEmpty(), "Inventory should initially be empty.");
+
+        inventory.addItem(potion);
+        assertFalse(inventory.isInventoryEmpty(), "Inventory should not be empty after adding an item.");
+
+        inventory.removeItem(potion);
+        assertTrue(inventory.isInventoryEmpty(), "Inventory should be empty again after removing the item.");
     }
 }
+
 
