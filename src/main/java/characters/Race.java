@@ -5,17 +5,19 @@ package characters;
  * Each race has unique bonuses to health, agility, and strength.
  */
 public enum Race {
-    HUMAN("Human", 2, 2, 2, 0),
-    ELF("Elf", 1, 3, 2, 0),
-    DWARF("Dwarf", 3, 2, 1, 0),
-    ORC("Orc", 1, 4, 1, 0),
-    FAIRY("Fairy", 1, 0, 5, 0);
+    HUMAN("Human", 2, 2, 2, 2, 2),
+    ELF("Elf", 1, 3, 2, 1, 3),
+    DWARF("Dwarf", 3, 2, 1, 3, 1),
+    ORC("Orc", 1, 4, 1, 4, 0),
+    FAIRY("Fairy", 1, 0, 5, 0, 4);
 
     private final String name;
     private final int healthBonus;
     private final int agilityBonus;
     private final int strengthBonus;
     private final int defenseBonus;
+
+    private final int manaBonus;
 
     /**
      * Constructs a race with specified name and attribute bonuses.
@@ -25,12 +27,13 @@ public enum Race {
      * @param agilityBonus the agility bonus for the race
      * @param strengthBonus the strength bonus for the race
      */
-    Race(String name, int healthBonus, int strengthBonus, int agilityBonus, int defenseBonus) {
+    Race(String name, int healthBonus, int strengthBonus, int agilityBonus, int defenseBonus, int manaBonus) {
         this.name = name;
         this.healthBonus = healthBonus;
         this.strengthBonus = strengthBonus;
         this.agilityBonus = agilityBonus;
         this.defenseBonus = defenseBonus;
+        this.manaBonus = manaBonus;
     }
 
     /**
@@ -85,6 +88,14 @@ public enum Race {
      */
     public int getDefenseBonus(){
         return defenseBonus;
+    }
+    /**
+     * Returns the mana bonus of the race.
+     *
+     * @return the mana bonus
+     */
+    public int getManaBonus(){
+        return manaBonus;
     }
 }
 
