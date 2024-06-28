@@ -8,6 +8,8 @@ import characters.Character;
 public abstract class CharacterDecorator extends Character {
     protected Character decoratedCharacter;
 
+    protected String name;
+
     /**
      * Initializes a new CharacterDecorator that wraps a given Character object.
      *
@@ -17,15 +19,16 @@ public abstract class CharacterDecorator extends Character {
         // Initializing the super class with decorated character's properties.
         super(decoratedCharacter.getName(), decoratedCharacter.getRace(),
                 decoratedCharacter.getHealth(), decoratedCharacter.getAttackPower(),
-                decoratedCharacter.getSpeed(), decoratedCharacter.getDefense());
+                decoratedCharacter.getSpeed(), decoratedCharacter.getDefense(),
+                decoratedCharacter.getMana());
         this.decoratedCharacter = decoratedCharacter;
     }
 
     // Method to apply the effects of the decorator
-    public abstract void apply(Character character);
+    public abstract void apply();
 
     // Method to revert the effects of the decorator
-    public abstract void revert(Character character);
+    public abstract void revert();
 
     @Override
     public void displayStats() {
