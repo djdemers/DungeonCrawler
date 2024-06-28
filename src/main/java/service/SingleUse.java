@@ -1,8 +1,6 @@
 package service;
 import characters.Character;
 
-public interface Item {
+public interface SingleUse extends Item {
     void use(Character character);
-    String getName();
-
 }
