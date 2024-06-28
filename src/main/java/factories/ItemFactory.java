@@ -1,51 +1,49 @@
 package factories;
 
-import characters.decorators.Armor;
-import characters.decorators.Dagger;
-import characters.decorators.Sword;
-import characters.consumables.HealthPotion;
-import service.Item;
 import characters.Character;
+import characters.consumables.HealthPotion;
+import characters.consumables.InstantLevelUp;
+import characters.consumables.MagicScroll;
+import characters.consumables.ManaPotion;
+import characters.decorators.Armor;
+import characters.decorators.Boots;
+import characters.decorators.Sword;
+import service.Equipable;
+import service.SingleUse;
 
 public class ItemFactory {
 
     /**
-     * Creates an item based solely on type, for items that do not depend on a character.
-     * This method is suitable for items like health potions which do not modify character states directly.
+     * Creates a health potion.
      *
-     * @param type The type of item to create.
-     * @return The created item.
+     * @param healingAmount The amount of health the potion restores.
+     * @return A new health potion.
      */
-    public static Item getItem(String type) {
-        switch (type) {
-            case "Health Potion":
-                return new HealthPotion("Health Potion", "Restores 50 health", 50);
-            default:
-                throw new IllegalArgumentException("No such simple item type or type requires additional parameters: " + type);
-        }
+    public static SingleUse createHealthPotion(int healingAmount) {
+        return new HealthPotion("Health Potion", "Restores " + healingAmount + " health", healingAmount);
+    }
+    public static SingleUse createManaPotion(int manaAmount) {
+        return new ManaPotion("Mana Potion", "Restores " + manaAmount + " health", manaAmount);
+    }
+    public static SingleUse createMagicScroll(String name, String description, int power) {
+        return new MagicScroll(name, description, power);
+    }
+    public static SingleUse createInstantLevelUp() {
+        return new InstantLevelUp("Mystic Tome", "Instantly level up!", 1);
     }
 
-    /**
-     * Creates an item requiring a character, name, description, and a value,
-     * such as weapons or armor that directly affect character stats.
-     *
-     * @param type The type of item to create.
-     * @param name The name of the item.
-     * @param description The description of the item.
-     * @param value The primary value associated with the item (e.g., attack or defense points).
-     * @param character The character associated with the item.
-     * @return The created item.
-     */
-    public static Item createItem(String type, String name, String description, int value, Character character) {
-        switch (type) {
-            case "Sword":
-                return new Sword(character, value, name, description);
-            case "Armor":
-                return new Armor(character, value, name, description);
-            case "Dagger":
-                return new Dagger(character, value, name, description);
-            default:
-                throw new IllegalArgumentException("Unknown item type: " + type);
-        }
+
+
+
+    public static Equipable createSword(String name, Character character, int attackBoost) {
+        return new Sword(name, character, attackBoost);
+    }
+
+
+    public static Equipable createArmor(String name, Character character, int defenseBoost) {
+        return new Armor(name, character, defenseBoost);
+    }
+    public static Equipable createBoots(String name, Character character, int speedBoost){
+        return new Boots(name, character, speedBoost);
     }
 }
