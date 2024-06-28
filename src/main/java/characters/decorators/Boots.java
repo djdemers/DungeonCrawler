@@ -1,12 +1,15 @@
+/*
 package characters.decorators;
 
 import characters.Character;
-import service.Item;
+import service.SingleUse;
 
+*/
 /**
  * Decorator that enhances a character's attack power and speed by equipping a dagger.
- */
-public class Dagger extends CharacterDecorator implements Item {
+ *//*
+
+public class Dagger extends CharacterDecorator implements SingleUse {
     private int additionalSpeed;
 
     private String name;
@@ -27,10 +30,12 @@ public class Dagger extends CharacterDecorator implements Item {
         character.setSpeed(character.getSpeed() - additionalSpeed);
     }
 
-    /**
+    */
+/**
      * Gets the name of the dagger.
      * @return A string representing the name of the dagger.
-     */
+     *//*
+
     @Override
     public String getName() {
         return name;
@@ -41,3 +46,4 @@ public class Dagger extends CharacterDecorator implements Item {
     }
 
 }
+*/

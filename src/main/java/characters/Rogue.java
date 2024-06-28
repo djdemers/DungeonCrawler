@@ -8,7 +8,7 @@ public class Rogue extends Character {
         // - Base Health: 100
         // - Base Attack Power: 40
         // - Base Speed: 60
-        super(name,race, 70, 8,20, 2);
+        super(name,race, 70, 8,20, 2, 10);
     }
     @Override
     public void attackEnemy(Enemy target) {
