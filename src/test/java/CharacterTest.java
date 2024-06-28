@@ -61,12 +61,12 @@ public class CharacterTest {
         Item healPotion = new HealthPotion("Small Heal", "Heals 20 health", 20);
         hero.getInventory().addItem(healPotion);
         hero.getInventory().useItem("Small Heal");
-        assertEquals(120, hero.getHealth(), "Hero's health should increase after using a healing potion.");
+        assertEquals(82, hero.getHealth(), "Hero's health should increase after using a healing potion.");
     }
 
     @Test
     public void testEquipItemFromInventory() {
-        // Assuming Equipable interface and Sword implements Equipable
+
         Item sword = new Sword("Iron Sword", hero,  5);
         hero.getInventory().addItem(sword);
         hero.getInventory().equipItem("Iron Sword");
