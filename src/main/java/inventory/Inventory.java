@@ -1,113 +1,79 @@
 package inventory;
 
-import characters.consumables.Consumable;
-import characters.decorators.CharacterDecorator;
-import characters.Character;
 import service.Item;
-
+import service.SingleUse;
+import service.Equipable;
+import characters.Character;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * The Inventory class manages a collection of items and gold within a game.
- * It allows adding and removing items, using consumable items, and managing gold.
- */
 public class Inventory {
-    private List<Item> items;  // General items list
+    private List<Item> items;
     private int gold;
+    private Character owner;
 
-    /**
-     * Constructs an Inventory with an empty list of items and no gold.
-     */
-    public Inventory() {
+    public Inventory(Character owner) {
         this.items = new ArrayList<>();
         this.gold = 0;
+        this.owner = owner;
     }
 
-    /**
-     * Adds an item to the inventory.
-     * @param item The item to be added.
-     */
     public void addItem(Item item) {
         this.items.add(item);
     }
 
-    /**
-     * Uses an item by its name, applying its effects to a specified character, and then removes it from the inventory.
-     * Only items that are instances of Consumable can be used.
-     * @param itemName The name of the item to use.
-     * @param character The character on whom the item is to be used.
-     */
-    public void useItem(String itemName, Character character) {
-        for (int i = 0; i < items.size(); i++) {
-            Item item = items.get(i);
-            if (item.getName().equals(itemName) && item instanceof Consumable) {
-                ((Consumable)item).use(character);
-                items.remove(i);  // Remove the item by index to avoid ConcurrentModificationException
-                break;
-            }
-        }
+    public void removeItem(Item item) {
+        this.items.remove(item);
     }
+
     public void listItems() {
-        for (Item item : items) {  // Assuming `items` is your List<Item> in Inventory
-            System.out.println(item.getName() + ": " + item.getDescription());  // Assuming getDescription exists
+        items.forEach(item -> System.out.println(item.getName()));
+    }
+
+    public Item getItem(String name) {
+        return items.stream()
+                .filter(item -> item.getName().equals(name))
+                .findFirst()
+                .orElse(null);
+    }
+
+    public void useItem(String itemName) {
+        Item item = getItem(itemName);
+        if (item != null && item instanceof SingleUse) {
+            ((SingleUse) item).use(owner);
+            items.remove(item); // Remove the item after use if it's consumable
         }
     }
 
-
-    /**
-     * Removes an item from the inventory and reverts any effects it had on the character.
-     * @param item The decorator item to be removed.
-     * @param character The character from whom the decorator's effects will be removed.
-     */
-    public void removeItem(CharacterDecorator item, Character character) {
-        item.revert(character);
-        items.remove(item);
+    public void equipItem(String itemName) {
+        Item item = getItem(itemName);
+        if (item != null && item instanceof Equipable) {
+            ((Equipable) item).equip(owner);
+            // Optionally, you might want to handle removing or disabling the item in the inventory
+        }
     }
 
-    /**
-     * Returns the count of items in the inventory.
-     * @return The number of items currently in the inventory.
-     */
     public int getItemCount() {
         return items.size();
     }
 
-    /**
-     * Checks if the inventory is empty.
-     * @return true if the inventory has no items, false otherwise.
-     */
     public boolean isInventoryEmpty() {
         return items.isEmpty();
     }
 
-    /**
-     * Adds gold to the inventory.
-     * @param amount The amount of gold to add.
-     */
     public void addGold(int amount) {
         this.gold += amount;
     }
 
-    /**
-     * Spends a specified amount of gold if sufficient gold is available.
-     * @param amount The amount of gold to spend.
-     * @throws IllegalStateException if there is not enough gold.
-     */
     public void spendGold(int amount) {
-        if (amount <= this.gold) {
+        if (this.gold >= amount) {
             this.gold -= amount;
         } else {
             throw new IllegalStateException("Not enough gold.");
         }
     }
 
-    /**
-     * Returns the current amount of gold in the inventory.
-     * @return The amount of gold.
-     */
     public int getGold() {
         return gold;
     }
 }
-
