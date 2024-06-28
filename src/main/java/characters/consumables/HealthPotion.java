@@ -1,13 +1,13 @@
 package characters.consumables;
 
 import characters.Character;
-import service.Item;
+import service.SingleUse;
 
 /**
  * Represents a health potion that can be used by a character to restore health.
  * This potion ensures that the character's health does not exceed their maximum allowable health.
  */
-public class HealthPotion extends Consumable implements Item {
+public class HealthPotion extends Consumable implements SingleUse {
     private int healingAmount;
 
     /**
@@ -48,15 +48,7 @@ public class HealthPotion extends Consumable implements Item {
         return super.name;
     }
 
-    /**
-     * Returns the description of the health potion.
-     *
-     * @return The description of the potion.
-     */
-    @Override
-    public String getDescription(){
-        return description;
-    }
+
 }
 
 
