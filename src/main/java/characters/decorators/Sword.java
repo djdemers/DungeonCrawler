@@ -1,43 +1,38 @@
 package characters.decorators;
 
 import characters.Character;
-import service.Item;
+import service.Equipable;
 
-/**
- * Decorator that enhances a character's attack power due to equipping a sword.
- */
-public class Sword extends CharacterDecorator implements Item {
-    private int additionalAttackPower;
-    private String name;
-    private String description;
+public class Sword extends CharacterDecorator implements Equipable {
+    private String itemName;
+    private int attackBoost;
 
-    public Sword(Character decoratedCharacter, int additionalAttackPower, String name, String description) {
+    public Sword(String name, Character decoratedCharacter, int attackBoost) {
         super(decoratedCharacter);
-        this.additionalAttackPower = additionalAttackPower;
-        this.name = name;
-        this.description = description;
+        this.itemName = name;
+        this.attackBoost = attackBoost;
     }
     @Override
-    public void apply(Character character) {
-        character.setAttackPower(character.getAttackPower() + additionalAttackPower);
-    }
-
-    @Override
-    public void revert(Character character) {
-        character.setAttackPower(character.getAttackPower() - additionalAttackPower);
-    }
-
-    /**
-     * Gets the name of the sword.
-     * @return A string representing the name of the sword.
-     */
-    @Override
-    public String getName() {
-        return name;
+    public CharacterDecorator equip(Character character) {
+        this.apply();
+        System.out.println(character.getName() + " equips " + itemName + " and gains " + attackBoost + " attack.");
+        return this;
     }
     @Override
-    public String getDescription(){
-        return description;
+    public void unequip(Character character) {
+        this.revert();  // Reverts this decorator's effects
+        System.out.println(character.getName() + " unequips " + itemName);
+    }
+    @Override
+    public void apply() {
+        decoratedCharacter.setAttackPower(decoratedCharacter.getAttackPower() + attackBoost);
+    }
+    @Override
+    public void revert() {
+        decoratedCharacter.setAttackPower(decoratedCharacter.getAttackPower() - attackBoost);
+    }
+    public String getName(){
+        return itemName;
     }
 
 }

@@ -1,49 +1,40 @@
-/*
 package characters.decorators;
 
 import characters.Character;
-import service.SingleUse;
+import service.Equipable;
 
-*/
-/**
- * Decorator that enhances a character's attack power and speed by equipping a dagger.
- *//*
-
-public class Dagger extends CharacterDecorator implements SingleUse {
+public class Boots extends CharacterDecorator implements Equipable {
+    private String itemName;
     private int additionalSpeed;
 
-    private String name;
-    private String description;
-
-    public Dagger(Character decoratedCharacter, int additionalSpeed, String name, String description) {
+    public Boots(String name, Character decoratedCharacter, int additionalSpeed) {
         super(decoratedCharacter);
+        this.itemName = name;
         this.additionalSpeed = additionalSpeed;
-        this.name = name;
-        this.description = description;
-    }
-    @Override
-    public void apply(Character character){
-        character.setSpeed(character.getSpeed() + additionalSpeed);
-    }
-    @Override
-    public void revert(Character character){
-        character.setSpeed(character.getSpeed() - additionalSpeed);
-    }
 
-    */
-/**
-     * Gets the name of the dagger.
-     * @return A string representing the name of the dagger.
-     *//*
-
-    @Override
-    public String getName() {
-        return name;
     }
     @Override
-    public String getDescription(){
-        return description;
+    public CharacterDecorator equip(Character character) {
+        this.apply();  // Applies this decorator's effects
+        System.out.println(character.getName() + " equips " + itemName + " and gains " + additionalSpeed + " speed.");
+        return this;
+    }
+    @Override
+    public void unequip(Character character) {
+        this.revert();  // Reverts this decorator's effects
+        System.out.println(character.getName() + " unequips " + itemName);
+    }
+    @Override
+    public void apply(){
+        decoratedCharacter.setSpeed(decoratedCharacter.getSpeed() + additionalSpeed);
+    }
+    @Override
+    public void revert(){
+        decoratedCharacter.setSpeed(decoratedCharacter.getSpeed() - additionalSpeed);
+    }
+    public String getName(){
+        return itemName;
     }
 
 }
-*/
+
