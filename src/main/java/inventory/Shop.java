@@ -10,38 +10,29 @@ import java.util.Random;
 
 public class Shop {
     private List<Item> itemsForSale;
-    private Random random = new Random();
-    private Character genericHero; // For the possibility that hero is null.
+    private Random random;
+    private Character owner;
 
-    public Shop(Character genericHero) {
+    public Shop(Character owner) {
         this.itemsForSale = new ArrayList<>();
-        this.genericHero = genericHero;
+        this.owner = owner;
+        this.random = new Random();
         generateInventory();
     }
 
     private void generateInventory() {
+        // Clear previous items
         itemsForSale.clear();
-        for (int i = 0; i < 3; i++) {
-            itemsForSale.add(generateRandomItem());
-        }
-    }
 
-    private Item generateRandomItem() {
-        int choice = random.nextInt(100);
-        if (choice < 50) {
-            return ItemFactory.createHealthPotion(50 + random.nextInt(51));
-        } else if (choice < 75) {
-            // Ensure there is a generic hero or handle it differently if not available
-            if (genericHero != null) {
-                return ItemFactory.createSword("Sword", genericHero, 10 + random.nextInt(11));
-            } else {
-                // Handle case where no character is available, maybe return a different item or null
-                return ItemFactory.createHealthPotion(50); // Fallback to potion or another item
-            }
-        } else if (choice < 95) {
-            return ItemFactory.createMagicScroll("Magic Scroll", "A powerful spell", 1);
+        // Generate two guaranteed random items
+        itemsForSale.add(ItemFactory.createRandomItem(owner));
+        itemsForSale.add(ItemFactory.createRandomItem(owner));
+
+        // Generate a third item, with a small chance to be an instant level-up
+        if (random.nextDouble() < 0.05) {  // 5% chance for an instant level-up
+            itemsForSale.add(ItemFactory.createInstantLevelUp());
         } else {
-            return ItemFactory.createInstantLevelUp();
+            itemsForSale.add(ItemFactory.createRandomItem(owner));
         }
     }
 
