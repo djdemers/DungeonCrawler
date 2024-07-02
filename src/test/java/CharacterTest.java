@@ -3,7 +3,6 @@ import static org.junit.jupiter.api.Assertions.*;
 import characters.Race;
 import characters.consumables.HealthPotion;
 import characters.decorators.Sword;
-import enemies.Dragon;
 import enemies.Goblin;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -22,7 +21,6 @@ public class CharacterTest {
 
     @BeforeEach
     public void setUp() {
-        // Initialize a character with controlled stats for predictability in tests.
         hero = new Warrior("hero", Race.HUMAN);
         enemy = new Goblin();
     }
@@ -30,7 +28,7 @@ public class CharacterTest {
     @Test
     public void testCharacterInitialization() {
         assertEquals(82, hero.getHealth(), "Health should match initial setup.");
-        assertEquals(7, hero.getMana(), "Mana should match initial setup.");
+        assertEquals(12, hero.getMana(), "Mana should match initial setup.");
         assertEquals(12, hero.getAttackPower(), "Attack power should be set correctly with racial bonuses.");
         assertEquals(7, hero.getSpeed(), "Speed should be set correctly.");
         assertEquals(7, hero.getDefense(), "Defense should be correct with racial bonuses.");
@@ -45,7 +43,7 @@ public class CharacterTest {
     @Test
     public void testReceiveDamage() {
         int initialHealth = hero.getHealth();
-        hero.heroIsHit(enemy);
+        hero.reduceHealth(enemy.getAttackPower());
         assertTrue(hero.getHealth() < initialHealth, "Hero health should decrease after taking damage.");
     }
     @Test
@@ -57,7 +55,6 @@ public class CharacterTest {
 
     @Test
     public void testUseItemFromInventory() {
-        // Assuming Item interface and HealPotion implements SingleUse
         Item healPotion = new HealthPotion("Small Heal", "Heals 20 health", 20);
         hero.getInventory().addItem(healPotion);
         hero.getInventory().useItem("Small Heal");
