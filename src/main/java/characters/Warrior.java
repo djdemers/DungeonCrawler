@@ -1,5 +1,6 @@
 package characters;
 
+import characters.skills.Rage;
 import enemies.Enemy;
 
 public class Warrior extends Character {
@@ -8,7 +9,8 @@ public class Warrior extends Character {
         // - Base Health: 150
         // - Base Attack Power: 30
         // - Base Speed: 20
-        super(name, race, 80, 10, 5, 5, 5);
+        super(name, race, 80, 10, 5, 5, 10);
+        addSkill(new Rage());
     }
 
     @Override
