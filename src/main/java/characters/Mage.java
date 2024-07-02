@@ -1,5 +1,6 @@
 package characters;
 
+import characters.skills.Fireball;
 import enemies.Enemy;
 
 public class Mage extends Character {
@@ -9,6 +10,7 @@ public class Mage extends Character {
         // - Base Attack Power: 60
         // - Base Speed: 30
     super(name,race, 60, 20, 9, 1, 20);
+    addSkill(new Fireball());
     }
     @Override
     public void attackEnemy(Enemy target) {
