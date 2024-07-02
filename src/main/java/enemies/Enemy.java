@@ -40,17 +40,6 @@ public abstract class Enemy {
     }
 
     /**
-     * Reduces the enemy's health by the attack power of the attacking character.
-     * Prints the outcome of the attack.
-     *
-     * @param target the character attacking this enemy
-     */
-    public void enemyIsHit(Character target) {
-        this.health -= target.getAttackPower();
-        System.out.println(this.name + " was hit by " + target.getName() + " for " + target.getAttackPower());
-    }
-
-    /**
      * Attacks a character, reducing their health by this enemy's attack power.
      * Prints the details of the attack.
      *
