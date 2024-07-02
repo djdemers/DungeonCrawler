@@ -31,8 +31,18 @@ public class Armor extends CharacterDecorator implements Equipable {
     public void revert() {
         decoratedCharacter.setDefense(decoratedCharacter.getDefense() - additionalDefense);
     }
+
     public String getName(){
         return itemName;
+    }
+
+    @Override
+    public String getType(){
+        return "Armor";
+    }
+    @Override
+    public int getBonus(){
+        return additionalDefense;
     }
 
 }

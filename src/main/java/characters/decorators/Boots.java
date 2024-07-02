@@ -35,6 +35,14 @@ public class Boots extends CharacterDecorator implements Equipable {
     public String getName(){
         return itemName;
     }
+    @Override
+    public String getType(){
+        return "Boots";
+    }
+    @Override
+    public int getBonus(){
+        return additionalSpeed;
+    }
 
 }
 

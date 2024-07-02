@@ -35,6 +35,15 @@ public class Sword extends CharacterDecorator implements Equipable {
         return itemName;
     }
 
+    @Override
+    public String getType(){
+        return "Sword";
+    }
+    @Override
+    public int getBonus(){
+        return attackBoost;
+    }
+
 }
 
 
