@@ -18,23 +18,29 @@ public class RageSkillTest {
 
     @BeforeEach
     public void setUp() {
+        // Initialize with specific classes
         hero = new Warrior("Warrior", Race.HUMAN);
-        nonWarrior = new Mage("NonWarrior",Race.HUMAN);
+        nonWarrior = new Mage("Mage", Race.HUMAN); // Mage class for clear differentiation
+        hero.setMana(20);
+        hero.setAttackPower(12);
         rage = new Rage();
         skillManager = new SkillManager();
-        skillManager.setCurrentTurn(0); // Initialize game turn to 0
+        skillManager.setCurrentTurn(0);
+        skillManager.recordSkillUsage(rage, hero);
+        skillManager.setCurrentTurn(rage.getCooldown());
     }
 
     @Test
     public void rageActivatesOnlyForWarriors() {
-        assertThrows(ClassCastException.class, () -> rage.activate(nonWarrior, nonWarrior),
-                "Rage should only be activatable by Warrior class characters.");
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> rage.activate(nonWarrior, null),
+                "Expected IllegalArgumentException for non-warriors trying to activate Rage.");
+        assertTrue(exception.getMessage().contains("can only be activated by Warriors"));
     }
 
     @Test
     public void rageIncreasesAttackPowerWhenActivated() {
         int originalAttackPower = hero.getAttackPower();
-        skillManager.activateSkill(rage, hero, null); // Activating the skill
+        skillManager.activateSkill(rage, hero, hero); // Activating the skill
         assertEquals(originalAttackPower + 5, hero.getAttackPower(),
                 "Rage should increase the hero's attack power by 5.");
     }
@@ -44,7 +50,7 @@ public class RageSkillTest {
         skillManager.activateSkill(rage, hero, null);
         skillManager.nextTurn(); // Advance game turn to simulate time passing
         skillManager.nextTurn(); // Advance another turn to complete duration
-        assertEquals(hero.getAttackPower(), 100, // Assuming the original attack power was 100
+        assertEquals(12, hero.getAttackPower(),
                 "Rage effect should end after 2 turns, reverting attack power to its original state.");
     }
 
@@ -58,4 +64,5 @@ public class RageSkillTest {
                 "Rage should be off cooldown after 1 turn.");
     }
 }
+
 
