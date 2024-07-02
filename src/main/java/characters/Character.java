@@ -1,7 +1,13 @@
 package characters;
 
+import characters.skills.Skill;
 import enemies.Enemy;
+import enemies.effects.Effect;
 import inventory.Inventory;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * Represents an abstract character in the game.
@@ -22,6 +28,8 @@ public abstract class Character {
     protected int maxMana;
 
     private Inventory inventory;
+    protected List<Skill> skills;
+    private List<Effect> activeEffects = new ArrayList<>();
 
     /**
      * Constructs a new character with specified attributes and race modifiers.
@@ -45,6 +53,7 @@ public abstract class Character {
         this.mana = baseMana + race.getManaBonus();
         this.maxMana = baseMana + race.getManaBonus();
         this.inventory = new Inventory(this);
+        this.skills = new ArrayList<>();
 
     }
 
@@ -74,17 +83,6 @@ public abstract class Character {
         System.out.println(this.name + " attacks " + target.getName() + " for "
                 + damageDone + " damage.");
     }
-
-    /**
-     * Handles the damage taken by this character when hit by an enemy.
-     *
-     * @param target the enemy that hits this character
-     */
-    public void heroIsHit(Enemy target){
-        this.reduceHealth(target.getAttackPower());  // Use reduceHealth to factor in defense
-        System.out.println(this.name + " was hit by " + target.getName() + " for " + target.getAttackPower() + " damage.");
-    }
-
 
     /**
      * Checks if the character is still alive based on their health.
@@ -192,6 +190,38 @@ public abstract class Character {
      */
     public Race getRace() {
         return race;
+    }
+
+    public void addSkill(Skill skill) {
+        skills.add(skill);
+    }
+
+    public List<Skill> getSkills() {
+        return skills;
+    }
+
+    public boolean hasSkill(String skillName) {
+        return skills.stream().anyMatch(s -> s.getName().equals(skillName));
+    }
+    // Method to add an effect
+    public void addEffect(Effect effect) {
+        activeEffects.add(effect);
+    }
+
+    /**
+     * Updates all active effects on the character. This should be called every turn.
+     * Decreases the duration of each effect and removes it if expired.
+     */
+    public void updateTemporaryEffects() {
+        Iterator<Effect> it = activeEffects.iterator();
+        while (it.hasNext()) {
+            Effect effect = it.next();
+            effect.decreaseDuration();  // Decrease duration by one.
+            if (effect.isExpired()) {
+                effect.removeEffect(this);  // Perform any cleanup necessary when the effect expires.
+                it.remove();  // Remove the effect from the list.
+            }
+        }
     }
 }
 
