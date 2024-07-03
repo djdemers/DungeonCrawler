@@ -1,5 +1,7 @@
 package characters.decorators;
+
 import characters.Character;
+
 
 /**
  * Abstract decorator for character objects to extend or modify their behavior dynamically.
@@ -16,31 +18,29 @@ public abstract class CharacterDecorator extends Character {
      * @param decoratedCharacter the character to be decorated
      */
     public CharacterDecorator(Character decoratedCharacter) {
-        // Initializing the super class with decorated character's properties.
-        super(decoratedCharacter.getName(), decoratedCharacter.getRace(),
-                decoratedCharacter.getHealth(), decoratedCharacter.getAttackPower(),
-                decoratedCharacter.getSpeed(), decoratedCharacter.getDefense(),
-                decoratedCharacter.getMana());
+      super(decoratedCharacter.getName(),decoratedCharacter.getRace(),
+              decoratedCharacter.getHealth(),decoratedCharacter.getAttackPower(),
+              decoratedCharacter.getSpeed(), decoratedCharacter.getDefense(),
+              decoratedCharacter.getMana());
         this.decoratedCharacter = decoratedCharacter;
     }
 
-    // Method to apply the effects of the decorator
+    /**
+     * Applies the specific effects of the decorator to the character.
+     * This could include changes like temporary stat boosts or new abilities.
+     */
     public abstract void apply();
 
-    // Method to revert the effects of the decorator
+    /**
+     * Reverts the effects previously applied by the decorator, restoring the character's original state.
+     */
     public abstract void revert();
 
+    /**
+     * Displays the character's stats, enhanced or modified by the decorator.
+     */
     @Override
     public void displayStats() {
-        super.displayStats();  // Call the decorated character's displayStats method
-    }
-
-    @Override
-    public int getAttackPower() {
-        return super.getAttackPower();
+        decoratedCharacter.displayStats();
     }
 }
-
-
-
-
