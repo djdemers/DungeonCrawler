@@ -86,15 +86,16 @@ public enum Race {
      *
      * @return the defense bonus
      */
-    public int getDefenseBonus(){
+    public int getDefenseBonus() {
         return defenseBonus;
     }
+
     /**
      * Returns the mana bonus of the race.
      *
      * @return the mana bonus
      */
-    public int getManaBonus(){
+    public int getManaBonus() {
         return manaBonus;
     }
 }
