@@ -1,13 +1,14 @@
 package characters;
 
 import characters.skills.Skill;
-import enemies.Enemy;
+import characters.skills.SkillManager;
+import enemies.*;
 import enemies.effects.Effect;
 import inventory.Inventory;
-
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Random;
 
 /**
  * Represents an abstract character in the game.
@@ -29,6 +30,7 @@ public abstract class Character {
 
     private Inventory inventory;
     protected List<Skill> skills;
+    private SkillManager skillManager;
     private List<Effect> activeEffects = new ArrayList<>();
 
     /**
@@ -54,34 +56,58 @@ public abstract class Character {
         this.maxMana = baseMana + race.getManaBonus();
         this.inventory = new Inventory(this);
         this.skills = new ArrayList<>();
+        this.skillManager = new SkillManager();
 
     }
-
 
     /**
      * Displays the character's current stats to the console.
      */
     public void displayStats() {
-        // Use getters to ensure all modifications by decorators are reflected
+        System.out.println("STATS:");
         System.out.println(name + " the " + race.getName());
         System.out.println("Health: " + getHealth());
         System.out.println("Mana: " + getMana());
         System.out.println("Attack: " + getAttackPower());
         System.out.println("Speed " + getSpeed());
-        System.out.println(  "Defense: " + getDefense());
+        System.out.println("Defense: " + getDefense());
     }
 
     /**
-     * Attacks the specified enemy, reducing their health by this character's attack power.
+     * Attacks an enemy character, calculating damage based on the character's attack power and the enemy's defense.
+     * This method showcases how different character classes can implement varied damage mechanics based on their unique attributes.
      *
-     * @param target the enemy to attack
+     * @param enemy the enemy to attack
      */
-    public void attackEnemy(Enemy target) {
-        int initialDamage = this.getAttackPower();
-        int damageDone = initialDamage - target.getDefense();
-        target.reduceHealth(initialDamage);
-        System.out.println(this.name + " attacks " + target.getName() + " for "
-                + damageDone + " damage.");
+    public void attackEnemy(Enemy enemy) {
+        int initialAttack = getAttackPower();
+        int damageReduction = enemy.getDefense();
+        int effectiveDamage = Math.max(1, initialAttack - damageReduction);
+
+        System.out.println("Hero attack power: " + initialAttack);
+        System.out.println("Enemy defense: " + damageReduction);
+        System.out.println("Effective damage on enemy: " + effectiveDamage);
+        enemy.reduceEnemyHealth(effectiveDamage);
+        System.out.println("Enemy takes " + effectiveDamage + " damage, health now " + enemy.getHealth());
+    }
+
+    /**
+     * Reduces the character's health by the specified damage amount, ensuring health does not drop below zero.
+     * This method is critical for handling combat dynamics and can be affected by character class-specific defenses or skills.
+     *
+     * @param damage the damage amount to subtract from health
+     */
+    public void reduceHeroHealth(int damage) {
+        System.out.println(this.getName() + " original health: " + this.getHealth());
+        System.out.println(this.getName() + " defense considered: " + this.getDefense() + ", incoming damage: " + damage);
+
+        int damageTaken = Math.max(1, damage);  // Already calculated in attackHero, no need to subtract defense again
+        System.out.println(this.getName() + " damage taken after defense: " + damageTaken);
+
+        int newHealth = Math.max(0, this.getHealth() - damageTaken);
+        this.setHealth(newHealth);
+
+        System.out.println(this.getName() + " new health after damage: " + this.getHealth());
     }
 
     /**
@@ -94,29 +120,17 @@ public abstract class Character {
     }
 
     /**
-     * Reduces the character's health by the specified damage amount.
-     * Ensures that health does not drop below zero.
-     *
-     * @param damage the amount of damage to inflict
-     */
-    public void reduceHealth(int damage) {
-        // Use the getter for defense to ensure any overridden behavior is respected
-        int damageTaken = Math.max(0, damage - getDefense());
-        // Calculate the new health value using getters and setters
-        int newHealth = getHealth() - damageTaken;
-        // Use the setter to adjust the health and ensure any additional logic in the setter is applied
-        setHealth(Math.max(0, newHealth)); // Ensure health does not drop below zero
-    }
-
-    // Getter methods with simple Javadoc comments
-    /**
      * Returns the name of the character.
      * @return the character's name
      */
-    public String getName(){
+    public String getName() {
         return this.name;
     }
 
+    /**
+     * Returns the inventory of the character.
+     * @return the character's inventory
+     */
     public Inventory getInventory() {
         return inventory;
     }
@@ -125,24 +139,46 @@ public abstract class Character {
      * Returns the current health of the character.
      * @return the character's health
      */
-    public int getHealth(){
-        return health;
+    public int getHealth() {
+        return this.health;
     }
-    public void setHealth(int health){
+
+    /**
+     * Sets the health of the character.
+     * @param health the new attack power
+     */
+    public void setHealth(int health) {
         this.health = health;
     }
 
-    public int getMaxHealth(){
+    /**
+     * Returns the maximum health of the character.
+     * @return maxHealth
+     */
+    public int getMaxHealth() {
         return this.maxHealth;
     }
-    public int getMana(){
+
+    /**
+     * Returns the mana of the character.
+     * @return mana
+     */
+    public int getMana() {
         return mana;
     }
-    public void setMana(int mana){
+
+    /**
+     * Sets the mana of the character.
+     */
+    public void setMana(int mana) {
         this.mana = mana;
     }
 
-    public int getMaxMana(){
+    /**
+     * Returns the maximum mana of the character.
+     * @return maxHealth
+     */
+    public int getMaxMana() {
         return this.maxMana;
     }
 
@@ -150,15 +186,14 @@ public abstract class Character {
      * Returns the attack power of the character.
      * @return the character's attack power
      */
-    public int getAttackPower(){
+    public int getAttackPower() {
         return attackPower;
     }
 
     /**
      * Sets the attack power of the character.
-     * @param attackPower the new attack power
      */
-    public void setAttackPower(int attackPower){
+    public void setAttackPower(int attackPower) {
         this.attackPower = attackPower;
     }
 
@@ -166,24 +201,32 @@ public abstract class Character {
      * Returns the speed of the character.
      * @return the character's speed
      */
-    public int getSpeed(){
+    public int getSpeed() {
         return speed;
     }
 
-    public void setSpeed(int speed){
+    /**
+     * Sets the speed of the character.
+     */
+    public void setSpeed(int speed) {
         this.speed = speed;
     }
 
     /**
-     * Returns the defense of the character
+     * Returns the defense of the character.
      * @return the character's defense.
      */
-    public int getDefense(){
+    public int getDefense() {
         return defense;
     }
-    public void setDefense(int defense){
+
+    /**
+     * Sets the defense of the character.
+     */
+    public void setDefense(int defense) {
         this.defense = defense;
     }
+
     /**
      * Returns the race of the character.
      * @return the character's race
@@ -203,9 +246,31 @@ public abstract class Character {
     public boolean hasSkill(String skillName) {
         return skills.stream().anyMatch(s -> s.getName().equals(skillName));
     }
+
+    public boolean useRandomSkill(Enemy target) {
+        if (skills.isEmpty()) {
+            System.out.println(name + " has no skills to use.");
+            return false;
+        }
+        Random rand = new Random();
+        Skill skill = skills.get(rand.nextInt(skills.size()));
+        if (skillManager.activateSkill(skill, this, target)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     // Method to add an effect
     public void addEffect(Effect effect) {
         activeEffects.add(effect);
+    }
+
+    public void displaySkills() {
+        System.out.println(name + "'s SKILLS:");
+        for (Skill skill : skills) {
+            System.out.println("- " + skill.getName() + ": " + skill.getDescription());
+        }
     }
 
     /**
@@ -224,4 +289,3 @@ public abstract class Character {
         }
     }
 }
-
