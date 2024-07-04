@@ -1,11 +1,24 @@
 package enemies.effects;
 
 import characters.Character;
+
+/**
+ * Represents a temporary effect that can be applied to characters in the game.
+ * This class manages effects that have a defined duration and specific actions
+ * to perform when the effect is applied and removed.
+ */
 public class Effect {
     private int duration;
     private Runnable effectApply;
     private Runnable effectRemove;
 
+    /**
+     * Constructs a new effect with a specified duration and actions for applying and removing the effect.
+     *
+     * @param duration The duration of the effect in turns or time units.
+     * @param effectApply A {@link Runnable} action that defines what happens when the effect is applied.
+     * @param effectRemove A {@link Runnable} action that defines what happens when the effect is removed.
+     */
     public Effect(int duration, Runnable effectApply, Runnable effectRemove) {
         this.duration = duration;
         this.effectApply = effectApply;
