@@ -2,6 +2,7 @@ package characters.skills;
 
 import characters.Character;
 import characters.Warrior;
+import enemies.Enemy;
 
 public class Rage extends Skill {
     private int attackBoost;
@@ -12,11 +13,12 @@ public class Rage extends Skill {
     }
 
     @Override
-    public void activate(Character caster, Character target) {
+    public void activateAttack(Character caster, Enemy target) {
         if (!(caster instanceof Warrior)) {
             throw new IllegalArgumentException("Rage can only be activated by Warriors.");
         }
         if (isAvailable(caster)) {
+            consumeMana(caster);
             applyBoost(caster);
         } else {
             throw new IllegalStateException("Skill not available or not enough resources.");

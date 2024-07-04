@@ -2,6 +2,7 @@ package characters.skills;
 
 import characters.Character;
 import characters.Mage;
+import enemies.Enemy;
 
 public class Fireball extends Skill {
     private int damage;
@@ -12,17 +13,20 @@ public class Fireball extends Skill {
     }
 
     @Override
-    public void activate(Character caster, Character target) {
+    public void activateAttack(Character caster, Enemy target) {
         if (!(caster instanceof Mage)) {
             System.out.println("This skill is only available to Mages.");
             return;
         }
         if (isAvailable(caster)) {
             applyBoost(caster);
+            consumeMana(caster);
+            deactivate(caster);
         } else {
             System.out.println("Not enough mana or skill is on cooldown.");
         }
     }
+
     private void applyBoost(Character caster) {
         caster.setAttackPower(caster.getAttackPower() + damage);
         System.out.println(caster.getName() + " uses " + getName() + ", increasing attack power by " + damage + ".");
