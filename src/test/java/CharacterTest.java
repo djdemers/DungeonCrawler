@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 import characters.Character;
 import characters.Warrior;
 import enemies.Enemy;
-import service.Item;
+import interfaces.Item;
 
 /**
  * Test class for Character.
@@ -43,7 +43,7 @@ public class CharacterTest {
     @Test
     public void testReceiveDamage() {
         int initialHealth = hero.getHealth();
-        hero.reduceHealth(enemy.getAttackPower());
+        hero.reduceHeroHealth(enemy.getAttackPower());
         assertTrue(hero.getHealth() < initialHealth, "Hero health should decrease after taking damage.");
     }
     @Test
@@ -55,7 +55,7 @@ public class CharacterTest {
 
     @Test
     public void testUseItemFromInventory() {
-        Item healPotion = new HealthPotion("Small Heal", "Heals 20 health", 20);
+        Item healPotion = new HealthPotion("Small Heal", "Heals 20 health", 20, 50);
         hero.getInventory().addItem(healPotion);
         hero.getInventory().useItem("Small Heal");
         assertEquals(82, hero.getHealth(), "Hero's health should increase after using a healing potion.");
@@ -64,9 +64,16 @@ public class CharacterTest {
     @Test
     public void testEquipItemFromInventory() {
 
-        Item sword = new Sword("Iron Sword", hero,  5);
+        Item sword = new Sword("Iron Sword", hero,  5, 150);
         hero.getInventory().addItem(sword);
         hero.getInventory().equipItem("Iron Sword");
         assertEquals(17, hero.getAttackPower(), "Hero's attack power should increase after equipping a sword.");
     }
+    @Test
+    public void testHealthNeverNegative() {
+        hero.setHealth(1); // Set hero's health to a low value
+        hero.reduceHeroHealth(10); // Apply damage that would potentially reduce health below zero
+        assertTrue(hero.getHealth() >= 0, "Health should never go negative.");
+    }
+
 }

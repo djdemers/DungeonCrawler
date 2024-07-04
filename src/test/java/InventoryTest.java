@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 import characters.Character;
 import characters.Warrior;
 import characters.Race;
-import service.Item;
+import interfaces.Item;
 import inventory.Inventory;
 
 public class InventoryTest {
@@ -23,8 +23,8 @@ public class InventoryTest {
         inventory = new Inventory(owner);
 
         // Create test items
-        potion = new HealthPotion("Health Potion", "Restores 50 health", 50);
-        sword = new Sword("Sword", owner, 10);
+        potion = new HealthPotion("Health Potion", "Restores 50 health", 50, 50);
+        sword = new Sword("Sword", owner, 10, 150);
     }
 
     @Test
@@ -41,6 +41,7 @@ public class InventoryTest {
     @Test
     public void testUseItem() {
         inventory.addItem(potion);
+        owner.setHealth(1);
         inventory.useItem("Health Potion");
         assertNull(inventory.getItem("Health Potion"), "Health potion should be used and removed from inventory.");
     }

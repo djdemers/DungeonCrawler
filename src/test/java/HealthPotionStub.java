@@ -1,9 +1,10 @@
 import characters.consumables.Consumable;
 import characters.Character;
-import service.SingleUse;
+import interfaces.SingleUse;
 
 class HealthPotionStub extends Consumable implements SingleUse {
     private boolean used = false;
+    private int price;
 
     public HealthPotionStub() {
         super("Health Potion", "Restores health");
@@ -23,5 +24,8 @@ class HealthPotionStub extends Consumable implements SingleUse {
     }
     public String getDescription(){
         return "Description";
+    }
+    public int getPrice(){
+        return price;
     }
 }
