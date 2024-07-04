@@ -235,18 +235,44 @@ public abstract class Character {
         return race;
     }
 
+    /**
+     * Adds a skill to the character's skill set.
+     * This method allows the character to learn a new skill, making it available for use in combat.
+     *
+     * @param skill The skill to be added to the character.
+     */
     public void addSkill(Skill skill) {
         skills.add(skill);
     }
 
+    /**
+     * Retrieves the list of skills that the character currently possesses.
+     * This method provides access to the character's complete set of skills.
+     *
+     * @return A list containing all the skills of the character.
+     */
     public List<Skill> getSkills() {
         return skills;
     }
 
+    /**
+     * Checks if the character has a specific skill based on its name.
+     * This method is used to verify whether the character has learned a particular skill.
+     *
+     * @param skillName The name of the skill to check for.
+     * @return true if the character has the skill, false otherwise.
+     */
     public boolean hasSkill(String skillName) {
         return skills.stream().anyMatch(s -> s.getName().equals(skillName));
     }
 
+    /**
+     * Attempts to use a random skill from the character's skill set against an enemy.
+     * This method randomly selects a skill and tries to activate it if conditions allow.
+     *
+     * @param target The enemy to target with the skill.
+     * @return true if the skill was successfully used, false if no skill was used.
+     */
     public boolean useRandomSkill(Enemy target) {
         if (skills.isEmpty()) {
             System.out.println(name + " has no skills to use.");
@@ -261,11 +287,22 @@ public abstract class Character {
         }
     }
 
-    // Method to add an effect
+    /**
+     * Adds a temporary effect to the character.
+     * This method allows the character to receive temporary modifications or boosts,
+     * which can affect combat or other interactions.
+     *
+     * @param effect The temporary effect to add to the character.
+     */
     public void addEffect(Effect effect) {
         activeEffects.add(effect);
     }
 
+    /**
+     * Displays all the skills the character has in a readable format.
+     * This method is particularly useful for providing players with information about
+     * the abilities their character can use.
+     */
     public void displaySkills() {
         System.out.println(name + "'s SKILLS:");
         for (Skill skill : skills) {
