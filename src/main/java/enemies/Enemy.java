@@ -21,6 +21,7 @@ public abstract class Enemy {
      * @param health the initial health of the enemy
      * @param attackPower the attack power of the enemy
      * @param speed the speed of the enemy
+     * @param defense the defense of the enemy
      */
     public Enemy(String name, int health, int attackPower, int speed, int defense) {
         this.name = name;
@@ -34,22 +35,49 @@ public abstract class Enemy {
      * Displays the current stats of the enemy.
      */
     public void displayStats() {
-        System.out.println(name + " Health: " + health + " Attack Power: "
-                + attackPower + " Speed: " + speed + "Defense: " + defense);
-
+        System.out.println(getName());
+        System.out.println("Health: " + getHealth());
+        System.out.println("Attack: " + getAttackPower());
+        System.out.println("Speed " + getSpeed());
+        System.out.println("Defense: " + getDefense());
     }
 
     /**
-     * Attacks a character, reducing their health by this enemy's attack power.
-     * Prints the details of the attack.
+     * Attacks the hero character, calculating damage based on the character's attack power and the enemy's defense.
+     * This method showcases how different character classes can implement varied damage mechanics based on their unique attributes.
      *
-     * @param target the character being attacked by this enemy
+     * @param hero the target to attack
      */
-    public void attackHero(Character target) {
-        int damageDone = this.getAttackPower() - target.getDefense();
-        target.reduceHealth(this.getAttackPower());
-        System.out.println(this.name + " attacks " + target.getName() + " for "
-                + damageDone + " damage.");
+    public void attackHero(Character hero) {
+        int initialAttack = getAttackPower();
+        int damageReduction = hero.getDefense();
+        int effectiveDamage = Math.max(1, initialAttack - damageReduction);
+
+        System.out.println("Enemy attack power: " + initialAttack);
+        System.out.println("Hero defense: " + damageReduction);
+        System.out.println("Effective damage on hero: " + effectiveDamage);
+        hero.reduceHeroHealth(effectiveDamage);
+        System.out.println("Hero takes " + effectiveDamage + " damage, health now " + hero.getHealth());
+    }
+
+
+    /**
+     * Reduces the enemies health by the specified damage amount, ensuring health does not drop below zero.
+     * This method is critical for handling combat dynamics and can be affected by character class-specific defenses or skills.
+     *
+     * @param damage the damage amount to subtract from health
+     */
+    public void reduceEnemyHealth(int damage) {
+        System.out.println(this.getName() + " original health: " + this.getHealth());
+        System.out.println(this.getName() + " defense considered: " + this.getDefense() + ", incoming damage: " + damage);
+
+        int damageTaken = Math.max(1, damage);
+        System.out.println(this.getName() + " damage taken after defense: " + damageTaken);
+
+        int newHealth = Math.max(0, this.getHealth() - damageTaken);
+        this.setHealth(newHealth);
+
+        System.out.println(this.getName() + " new health after damage: " + this.getHealth());
     }
 
     /**
@@ -62,40 +90,71 @@ public abstract class Enemy {
     }
 
     /**
-     * Reduces the health of the enemy by a specified damage amount.
-     * Ensures that health does not drop below zero.
-     *
-     * @param damage the amount of damage inflicted on the enemy
+     * Returns the name of the enemy.
+     * @return the enemies name
      */
-    public void reduceHealth(int damage) {
-        int damageTaken = Math.max(0, damage - this.defense);  // Damage reduced by defense, but not below 0
-        this.health -= damageTaken;
-        if (this.health < 0) {
-            this.health = 0;
-        }
-    }
-
-    // Getter methods
     public String getName() {
-        return name;
+        return this.name;
     }
 
-    public int getHealth(){
-        return health;
+    /**
+     * Sets the health of the enemy.
+     * @param health the new attack power
+     */
+    public void setHealth(int health) {
+        this.health = health;
     }
 
-    public int getAttackPower(){
-        return attackPower;
+    /**
+     * Returns the current health of the enemy.
+     * @return the character's health
+     */
+    public int getHealth() {
+        return this.health;
     }
 
-    public int getSpeed(){
-        return speed;
+    /**
+     * Returns the attack power of the character.
+     * @return the character's attack power
+     */
+    public int getAttackPower() {
+        return this.attackPower;
     }
 
+    /**
+     * Sets the attack power of the character.
+     */
+    public void setAttackPower(int attackPower) {
+        this.attackPower = attackPower;
+    }
+
+    /**
+     * Returns the speed of the character.
+     * @return the character's speed
+     */
+    public int getSpeed() {
+        return this.speed;
+    }
+
+    /**
+     * Sets the speed of the character.
+     */
+    public void setSpeed(int speed) {
+        this.speed = speed;
+    }
+
+    /**
+     * Returns the defense of the character.
+     * @return the character's defense.
+     */
     public int getDefense() {
-        return defense;
+        return this.defense;
     }
-    public void setDefense(int defense){
+
+    /**
+     * Sets the defense of the character.
+     */
+    public void setDefense(int defense) {
         this.defense = defense;
     }
 }
