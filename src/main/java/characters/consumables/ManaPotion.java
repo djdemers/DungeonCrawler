@@ -1,7 +1,7 @@
 package characters.consumables;
 
 import characters.Character;
-import service.SingleUse;
+import interfaces.SingleUse;
 
 /**
  * Represents a mana potion that can be used by a character to restore mana.
@@ -9,6 +9,7 @@ import service.SingleUse;
  */
 public class ManaPotion extends Consumable implements SingleUse {
     private int manaAmount;
+    private int price;
 
     /**
      * Constructs a new Mana Potion with a specified name, description, and restore amount.
@@ -17,8 +18,9 @@ public class ManaPotion extends Consumable implements SingleUse {
      * @param description A brief description of the mana potion's effects.
      * @param manaAmount The amount of health this potion will restore when used.
      */
-    public ManaPotion(String name, String description, int manaAmount) {
+    public ManaPotion(String name, String description, int manaAmount, int price) {
         super(name, description);
+        this.price = price;
         this.manaAmount = manaAmount;
     }
 
@@ -35,7 +37,7 @@ public class ManaPotion extends Consumable implements SingleUse {
         character.setMana(newMana);
 
         int manaRestoration = newMana - originalMana;
-        System.out.println(character.getName() + " uses " + name + " and restores " + manaRestoration + " mana points.");
+        System.out.println(name + " used and restores " + manaRestoration + " mana points.");
         // Remove this consumable from the inventory after use
     }
 
@@ -44,8 +46,12 @@ public class ManaPotion extends Consumable implements SingleUse {
      *
      * @return The name of the potion.
      */
-    public String getName(){
+    public String getName() {
         return super.name;
+    }
+
+    public int getPrice() {
+        return price;
     }
 
 }

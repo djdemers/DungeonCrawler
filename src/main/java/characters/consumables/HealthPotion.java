@@ -1,7 +1,7 @@
 package characters.consumables;
 
 import characters.Character;
-import service.SingleUse;
+import interfaces.SingleUse;
 
 /**
  * Represents a health potion that can be used by a character to restore health.
@@ -9,6 +9,7 @@ import service.SingleUse;
  */
 public class HealthPotion extends Consumable implements SingleUse {
     private int healingAmount;
+    private int price;  // Add price field
 
     /**
      * Constructs a new Health Potion with a specified name, description, and healing amount.
@@ -17,9 +18,10 @@ public class HealthPotion extends Consumable implements SingleUse {
      * @param description A brief description of the health potion's effects.
      * @param healingAmount The amount of health this potion will restore when used.
      */
-    public HealthPotion(String name, String description, int healingAmount) {
+    public HealthPotion(String name, String description, int healingAmount, int price) {
         super(name, description);
         this.healingAmount = healingAmount;
+        this.price = price;
     }
 
     /**
@@ -35,7 +37,7 @@ public class HealthPotion extends Consumable implements SingleUse {
         character.setHealth(newHealth); // Set the new health
 
         int actualHealing = newHealth - originalHealth; // Calculate the actual amount of health restored
-        System.out.println(character.getName() + " uses " + name + " and restores " + actualHealing + " health points.");
+        System.out.println(name + " used and restores " + actualHealing + " health points.");
         // Remove this consumable from the inventory after use
     }
 
@@ -44,10 +46,13 @@ public class HealthPotion extends Consumable implements SingleUse {
      *
      * @return The name of the potion.
      */
-    public String getName(){
+    public String getName() {
         return super.name;
     }
 
+    public int getPrice() {
+        return price;
+    }
 
 }
 
