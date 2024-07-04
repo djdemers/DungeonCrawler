@@ -1,12 +1,12 @@
 package factories;
 
+import characters.Archer;
 import characters.Character;
 import characters.CharacterClass;
-import characters.Race;
-import characters.Warrior;
 import characters.Mage;
+import characters.Race;
 import characters.Rogue;
-import characters.Archer;
+import characters.Warrior;
 
 /**
  * Factory class for creating character instances.
