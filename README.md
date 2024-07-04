@@ -182,12 +182,9 @@ for this if there are no screenshots that show us your reports. (10 points)
 # ScreenCast
 Include a short screencast showing you doing a git clone from your repo, gradle build, showing your reports  
 (JUnit, Spotbugs, Checkstyle, GitHub Actions CI), and gradle run. Show your system in action (max. 6min). (8 points)  
--- link to screencast
+https://youtu.be/aV6XONbFB-c
 
 
-# Design Pattern Explanation
-Explain each of your Design Patterns briefly and mention which of the requirements
-you fulfilled with this Pattern. (5 points)
 
 # Submission
 ### Requirements Checklist
@@ -195,13 +192,8 @@ In your PDF, describe which requirements you fulfilled and also make sure you co
 If you chose version 2 above, then 9 requirements need to be fulfilled overall in your code.  
 
 Submit code with your Design Patterns and all that is asked above
-1. A link to your GitHub repository (also include in the PDF)
-2. A link to your screencast (also include in the PDF)
+1. A link to your GitHub repository (also include in the PDF) https://github.com/djdemers/assignment5
+2. A link to your screencast (also include in the PDF) https://youtu.be/aV6XONbFB-c
 3. A PDF document explaining everything that is asked above in the general assignment.
    Submit the PDF directly on Canvas.
 
-## Run Instructions
-
-## Test Instructions
-gradle test --tests InventoryTest  
-gradle test --tests CharacterTest 
