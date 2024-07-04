@@ -1,4 +1,5 @@
-package service;
+package interfaces;
+
 import characters.Character;
 
 public interface SingleUse extends Item {

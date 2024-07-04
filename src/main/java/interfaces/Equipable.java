@@ -1,6 +1,8 @@
-package service;
-import characters.decorators.CharacterDecorator;
+package interfaces;
+
 import characters.Character;
+import characters.decorators.CharacterDecorator;
+
 
 /**
  * Interface for items that can be equipped by characters in the game.

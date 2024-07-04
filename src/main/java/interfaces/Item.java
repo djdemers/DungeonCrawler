@@ -1,4 +1,4 @@
-package service;
+package interfaces;
 
 /**
  * Base interface for all items in the game.
